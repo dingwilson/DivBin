@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import Firebase
 
 app = Flask(__name__)
 
@@ -15,7 +16,7 @@ item = [
 
 @app.route('/', methods=['GET'])
 def root():
-    return 'Hello World'
+    return 'Apples'
 
 @app.route('/test', methods=['GET'])
 def test():
