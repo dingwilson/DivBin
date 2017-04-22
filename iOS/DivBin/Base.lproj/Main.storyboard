@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="SplashViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZI-7M-Cqp">
+                                <rect key="frame" x="124" y="315" width="126" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="51C-5Y-WLi"/>
+                                </constraints>
+                                <state key="normal" title="Go"/>
+                                <connections>
+                                    <segue destination="cTI-L6-5QT" kind="show" id="G7e-B8-8ra"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0F4-mg-3Dn"/>
+                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="295" id="C5w-VB-2wk"/>
+                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rJa-Gj-Wrt"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="B2x-GG-8Jl">
+            <objects>
+                <viewController id="cTI-L6-5QT" customClass="CameraViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O1k-HW-a9p"/>
+                        <viewControllerLayoutGuide type="bottom" id="a6q-DW-TWn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cwU-zC-BCo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHx-jx-pA6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bHx-jx-pA6" firstAttribute="top" secondItem="cwU-zC-BCo" secondAttribute="top" id="7GC-pV-KSP"/>
+                            <constraint firstAttribute="trailing" secondItem="bHx-jx-pA6" secondAttribute="trailing" id="Pxm-2s-mX0"/>
+                            <constraint firstItem="bHx-jx-pA6" firstAttribute="leading" secondItem="cwU-zC-BCo" secondAttribute="leading" id="RqT-x4-PCa"/>
+                            <constraint firstItem="bHx-jx-pA6" firstAttribute="bottom" secondItem="a6q-DW-TWn" secondAttribute="top" id="ffW-8K-Owr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="previewView" destination="bHx-jx-pA6" id="GDf-C0-kVX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BkY-jZ-DOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="37.331334332833585"/>
+        </scene>
+    </scenes>
+</document>

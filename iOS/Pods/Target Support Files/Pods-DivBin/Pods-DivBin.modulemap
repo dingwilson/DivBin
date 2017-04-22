@@ -1,0 +1,6 @@
+framework module Pods_DivBin {
+  umbrella header "Pods-DivBin-umbrella.h"
+
+  export *
+  module * { export * }
+}
