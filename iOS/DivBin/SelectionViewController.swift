@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 
 class SelectionViewController: UIViewController {
     
     var currentImage: UIImage?
     var tag: String?
+    
+    var server: String?
     
     override var prefersStatusBarHidden : Bool {
         return true
@@ -26,36 +29,55 @@ class SelectionViewController: UIViewController {
         
         imageView?.image = currentImage
         titleLabel.text = tag
+        
+        loadServerURL()
     }
     
     @IBAction func didPressCompost(_ sender: Any) {
-        print("Compost")
+        sendData(type: "compost")
         self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressTrash(_ sender: Any) {
-        print("Trash")
+        sendData(type: "trash")
         self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressRecycle(_ sender: Any) {
-        print("Recycle")
+        sendData(type: "recycle")
         self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressDonate(_ sender: Any) {
-        print("Donate")
+        sendData(type: "donate")
         self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func sendData(type: String) {
+        let url = "\(self.server!)/lists/\(type)/\(tag!)"
+        
+        Alamofire.request(url, method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let _): break
+                // Yay
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-    */
+    
+    func loadServerURL() {
+        if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
+            let keys = NSDictionary(contentsOf: url) as? [String:Any] {
+            
+            if let serverURL = keys["Server_URL"] as? String {
+                server = serverURL
+            } else {
+                fatalError("Unable to find Server URL")
+            }
+        } else {
+            fatalError("Error: Could not find Keys.plist")
+        }
+    }
 
 }
