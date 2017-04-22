@@ -156,7 +156,7 @@
 				TargetAttributes = {
 					C87FCE751EAB0BCC00AE6E4A = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = VTH3535D42;
+						DevelopmentTeam = Z88HQX98VL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -373,7 +373,7 @@
 			baseConfigurationReference = 039CEB791BB4D465250C4DD3 /* Pods-DivBin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;
@@ -387,7 +387,7 @@
 			baseConfigurationReference = 5380986E795E8C8B4D9EA126 /* Pods-DivBin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;

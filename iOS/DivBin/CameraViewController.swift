@@ -18,6 +18,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     let cameraTimerInterval: TimeInterval = 3
     
+    let blacklistWords: [String] = ["adult", "building", "business", "education", "exhibition", "indoors", "internet", "light", "modern", "music", "no person", "one", "people", "recreation", "room"]
+    
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -118,13 +120,17 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.right)
             
-            processImageViaClarifai(image: image)
+            let processQueue = DispatchQueue(label: "com.wilsonding.DivBin")
+            
+            processQueue.async {
+                self.processImage(image: image)
+            }
         } else {
             print("Encountered error with capturing image")
         }
     }
     
-    func processImageViaClarifai(image: UIImage) {
+    func processImage(image: UIImage) {
         app?.getModelByName("general-v1.3", completion: { (model, error) in
             let clarifaiImage = ClarifaiImage(image: image)
             model?.predict(on: [clarifaiImage!], completion: {(outputs, error) in
@@ -134,6 +140,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     for concepts: ClarifaiConcept in (output?.concepts)! {
                         tags.append(concepts.conceptName)
                     }
+                    
+                    tags = tags.filter({!self.blacklistWords.contains($0 as! String)})
                     
                     var queryStr = tags.description
                     queryStr = queryStr.replacingOccurrences(of: " ", with: "")
@@ -153,7 +161,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     }
                     
                 } else {
-                    print("Error: \(error?.localizedDescription)")
+                    print("Error: \(String(describing: error?.localizedDescription))")
                 }
             })
         })
@@ -166,10 +174,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             if let serverURL = keys["Server_URL"] as? String {
                 server = serverURL
             } else {
-                print("Unable to find Sever URL")
+                print("Unable to find Server URL")
             }
-            
-            
         } else {
             print("Error: Could not find Keys.plist")
         }
