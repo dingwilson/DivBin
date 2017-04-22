@@ -7,6 +7,7 @@ target 'DivBin' do
 
   # Pods for DivBin
   pod 'Alamofire'
+  pod 'SwiftyJSON'
   pod 'SwiftVideoBackground'
   pod 'Clarifai'
 end
