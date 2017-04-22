@@ -10,17 +10,19 @@ import UIKit
 import AVFoundation
 import Clarifai
 
-class CameraViewController: UIViewController {
+class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBOutlet weak var previewView: UIView!
     
-    let cameraTimerInterval = 3
+    let cameraTimerInterval: TimeInterval = 3
     
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     var app: ClarifaiApp?
+    
+    var checkTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,14 @@ class CameraViewController: UIViewController {
         super.viewWillAppear(animated)
         
         loadCamera()
+        
+        self.checkTimer = Timer.scheduledTimer(timeInterval: cameraTimerInterval, target: self, selector: #selector(self.takePhoto), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        captureSession!.stopRunning()
+        self.checkTimer.invalidate()
     }
     
     func loadClarifaiKeys() {
@@ -49,45 +59,6 @@ class CameraViewController: UIViewController {
             }
         } else {
             print("Error: Could not find Keys.plist")
-        }
-    }
-    
-    func getCameraPermission() {
-        let cameraPermissionStatus =  AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        
-        switch cameraPermissionStatus {
-        case .authorized:
-            loadCamera()
-        case .denied:
-            print("Error: Camera Access Denied")
-            
-            let alert = UIAlertController(title: "Error" , message: "Camera access is denied.",  preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .cancel,  handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        case .restricted:
-            print("Error: Camera Access Restricted")
-        default:
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
-                [weak self]
-                (granted :Bool) -> Void in
-                
-                if granted == true {
-                    DispatchQueue.main.async(){
-                        self?.loadCamera()
-                    }
-                }
-                else {
-                    print("Error: Camera Access Rejected By User")
-                    
-                    DispatchQueue.main.async(){
-                        let alert = UIAlertController(title: "Error" , message: "Camera access is denied.",  preferredStyle: .alert)
-                        let action = UIAlertAction(title: "Ok", style: .cancel,  handler: nil)
-                        alert.addAction(action)
-                        self?.present(alert, animated: true, completion: nil)  
-                    } 
-                }
-            });
         }
     }
     
@@ -126,7 +97,7 @@ class CameraViewController: UIViewController {
             kCVPixelBufferHeightKey as String: 160
         ]
         settings.previewPhotoFormat = previewFormat
-        cameraOutput?.capturePhoto(with: settings, delegate: self as! AVCapturePhotoCaptureDelegate)
+        cameraOutput?.capturePhoto(with: settings, delegate: self as AVCapturePhotoCaptureDelegate)
     }
     
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
@@ -138,15 +109,33 @@ class CameraViewController: UIViewController {
         if  let sampleBuffer = photoSampleBuffer,
             let previewBuffer = previewPhotoSampleBuffer,
             let dataImage =  AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer:  sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-            print(UIImage(data: dataImage)?.size as Any)
-            
+
             let dataProvider = CGDataProvider(data: dataImage as CFData)
             let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.right)
             
-            // Process Image
+            processImageViaClarifai(image: image)
         } else {
             print("Encountered error with capturing image")
         }
+    }
+    
+    func processImageViaClarifai(image: UIImage) {
+        app?.getModelByName("general-v1.3", completion: { (model, error) in
+            let clarifaiImage = ClarifaiImage(image: image)
+            model?.predict(on: [clarifaiImage!], completion: {(outputs, error) in
+                if error == nil {
+                    let output = outputs?[0]
+                    var tags = [Any]()
+                    for concepts: ClarifaiConcept in (output?.concepts)! {
+                        tags.append(concepts.conceptName)
+                    }
+                    
+                    print(tags)
+                } else {
+                    print("Error: \(error?.localizedDescription)")
+                }
+            })
+        })
     }
 }
