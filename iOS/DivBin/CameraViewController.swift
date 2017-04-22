@@ -15,10 +15,16 @@ import SwiftyJSON
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var incorrectButton: UIButton!
+    @IBOutlet weak var fourthDescription: UILabel!
+    @IBOutlet weak var thirdDescription: UILabel!
+    @IBOutlet weak var secondDescription: UILabel!
+    @IBOutlet weak var firstDescription: UILabel!
     
     let cameraTimerInterval: TimeInterval = 3
     
-    let blacklistWords: [String] = ["adult", "art", "artistic", "blur", "bright", "building", "business", "car", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "internet", "landscape", "light", "luxury", "money", "modern", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "recreation", "room", "science", "shining", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
+    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
     
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
@@ -38,6 +44,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        titleLabel.isHidden = true
+        incorrectButton.isHidden = true
+        firstDescription.isHidden = true
+        secondDescription.isHidden = true
+        thirdDescription.isHidden = true
+        fourthDescription.isHidden = true
         
         loadCamera()
         
@@ -104,9 +117,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 device.exposurePointOfInterest = focusPoint
                 device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
                 device.unlockForConfiguration()
-            }
-            catch {
-                // just ignore
+            } catch {
+                // just ignore fail of autofocus
             }
         } else {
             fatalError("Error: Cannot setup input for captureSession")
@@ -183,6 +195,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     
                     tags = tags.filter({!self.blacklistWords.contains($0 as! String)})
                     
+                    DispatchQueue.main.async {
+                        self.titleLabel.text = tags[0] as? String
+                        self.titleLabel.isHidden = false
+                        self.incorrectButton.isHidden = false
+                    }
+                    
                     var queryStr = tags.description
                     queryStr = queryStr.replacingOccurrences(of: " ", with: "")
                     queryStr.remove(at: queryStr.startIndex)
@@ -221,4 +239,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    @IBAction func didPressIncorrectButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToSelection", sender: self)
+    }
 }
