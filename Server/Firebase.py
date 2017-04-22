@@ -7,7 +7,7 @@ def getItem(item):
 
     getURL = FIREBASE_URL + item + '.json'
     req = requests.get(getURL)
-    res = json.loads(req.content)
+    res = json.loads(req.content.decode('utf-8'))
     return res
 
 def addItem(category, item):
