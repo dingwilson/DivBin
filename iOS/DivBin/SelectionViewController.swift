@@ -29,19 +29,23 @@ class SelectionViewController: UIViewController {
     }
     
     @IBAction func didPressCompost(_ sender: Any) {
-        
+        print("Compost")
+        self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressTrash(_ sender: Any) {
-        
+        print("Trash")
+        self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressRecycle(_ sender: Any) {
-        
+        print("Recycle")
+        self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     @IBAction func didPressDonate(_ sender: Any) {
-        
+        print("Donate")
+        self.performSegue(withIdentifier: "unwindSegue", sender: self)
     }
     
     /*

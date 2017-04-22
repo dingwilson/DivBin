@@ -203,7 +203,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     let output = outputs?[0]
                     self.tags = [Any]()
                     for concepts: ClarifaiConcept in (output?.concepts)! {
-                        self.tags.append(concepts.conceptName as String)
+                        self.tags.append(concepts.conceptName)
                     }
                     
                     self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
