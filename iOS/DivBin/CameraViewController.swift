@@ -245,10 +245,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                             
                             for item in sorted {
                                 if (item.value != 0.0) {
-                                    self.descriptionArray.append("\(item.key): \(item.value * 100)%")
+                                    self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
                                 }
                             }
                             
+                            self.updatePercentages()
                         case .failure(let error):
                             print(error)
                         }
@@ -262,7 +263,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
 
     func updatePercentages() {
-        DispatchQueue.main.async() {
             self.firstDescription.isHidden = true
             self.secondDescription.isHidden = true
             self.thirdDescription.isHidden = true
@@ -301,7 +301,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 
             self.descriptionArray = []
             }
-        }
     }
 
     func loadServerURL() {
