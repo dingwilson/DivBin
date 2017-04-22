@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import Clarifai
+import Alamofire
+import SwiftyJSON
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
@@ -21,6 +23,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     var app: ClarifaiApp?
+    var server: String?
     
     var checkTimer: Timer!
     
@@ -28,6 +31,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         super.viewDidLoad()
         
         loadClarifaiKeys()
+        loadServerURL()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -131,11 +135,44 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         tags.append(concepts.conceptName)
                     }
                     
-                    print(tags)
+                    var queryStr = tags.description
+                    queryStr = queryStr.replacingOccurrences(of: " ", with: "")
+                    queryStr.remove(at: queryStr.startIndex)
+                    queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
+                    
+                    let url = self.server! + "/analyze/" + queryStr
+                    print(queryStr)
+                    Alamofire.request(url, method: .get).validate().responseJSON { response in
+                        switch response.result {
+                        case .success(let value):
+                            let json = JSON(value)
+                            print("JSON: \(json)")
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    
                 } else {
                     print("Error: \(error?.localizedDescription)")
                 }
             })
         })
     }
+    
+    func loadServerURL() {
+        if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
+            let keys = NSDictionary(contentsOf: url) as? [String:Any] {
+            
+            if let serverURL = keys["Server_URL"] as? String {
+                server = serverURL
+            } else {
+                print("Unable to find Sever URL")
+            }
+            
+            
+        } else {
+            print("Error: Could not find Keys.plist")
+        }
+    }
+    
 }
