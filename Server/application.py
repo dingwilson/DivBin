@@ -28,5 +28,13 @@ def post():
     print(content)
     return jsonify(content)
 
+@app.route('/lists/<int:id>/<string:item>', methods=['GET'])
+def addItemToList(id,item):
+    Firebase.addItem(id, item)
+    result = {
+        id:item
+    }
+    return jsonify(result)
+
 if __name__ == '__main__':
     app.run(debug=True)
