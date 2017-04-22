@@ -209,18 +209,39 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
                     
                     let url = self.server! + "/analyze/" + queryStr
-                    print(queryStr)
+//                    print(queryStr)
                     Alamofire.request(url, method: .get).validate().responseJSON { response in
                         switch response.result {
                         case .success(let value):
                             let json = JSON(value)
+                            let trash = json["Trash"].doubleValue
+                            let donate = json["Donate"].doubleValue
+                            let compost = json["Compost"].doubleValue
+                            let recycle = json["Recycle"].doubleValue
                             
-                            let trash = json["Trash"]
-                            let donate = json["Donate"]
-                            let compost = json["Compost"]
-                            let recycle = json["Recycle"]
+                    
+                            let dict = [
+                                "Trash":trash,
+                                "Donate":donate,
+                                "Compost":compost,
+                                "Recycle":recycle
+                            ]
                             
-                            // self.descriptionArray.append("CODE")
+                            let sorted = dict.sorted(by: {
+                                let obj1 = dict[$0.key]
+                                let obj2 = dict[$1.key]
+                                if (obj1! - obj2! > 0) {
+                                    return true
+                                }
+                                return false
+                            })
+                            
+                            for item in sorted {
+                                if (item.value != 0.0) {
+                                    self.descriptionArray.append("\(item.key) - \(item.value)")
+                                    print("\(item.key) - \(item.value)")
+                                }
+                            }
                             
                         case .failure(let error):
                             print(error)
