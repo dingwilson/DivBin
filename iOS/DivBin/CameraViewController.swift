@@ -207,7 +207,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     }
                     
                     self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
-                    print(self.tags)
                     
                     DispatchQueue.main.async {
                         self.titleLabel.text = self.tags[0] as? String

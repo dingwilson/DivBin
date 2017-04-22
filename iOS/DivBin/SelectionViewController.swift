@@ -10,11 +10,23 @@ import UIKit
 
 class SelectionViewController: UIViewController {
     
+    var currentImage: UIImage?
+    var tag: String?
+    
     override var prefersStatusBarHidden : Bool {
         return true
     }
-
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var imageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        imageView?.image = currentImage
+        titleLabel.text = tag
+    }
     
     @IBAction func didPressCompost(_ sender: Any) {
         

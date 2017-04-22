@@ -19,6 +19,8 @@ class SelectionRootViewController: UIViewController, UITableViewDelegate, UITabl
     
     var currentImage: UIImage?
     var tags: [Any]?
+    
+    var selectedTag: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +29,6 @@ class SelectionRootViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
         
         imageView.image = currentImage
-        
-        print(tags)
-
-        // Do any additional setup after loading the view.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -52,17 +50,15 @@ class SelectionRootViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedTag = self.tags?[indexPath.row] as? String
         self.performSegue(withIdentifier: "goToChoose", sender: self)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let nextVC = segue.destination as? SelectionViewController {
+            nextVC.tag = self.selectedTag
+            nextVC.currentImage = currentImage
+        }
     }
-    */
 
 }
