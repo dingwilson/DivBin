@@ -16,6 +16,7 @@
 		C87FCE971EAB184300AE6E4A /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE961EAB184300AE6E4A /* Keys.plist */; };
 		C87FCE9B1EAB465C00AE6E4A /* Flying-Birds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE9A1EAB465C00AE6E4A /* Flying-Birds.mp4 */; };
 		C87FCE9D1EABA17900AE6E4A /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCE9C1EABA17900AE6E4A /* SelectionViewController.swift */; };
+		C87FCEA11EABB89C00AE6E4A /* SelectionRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCEA01EABB89C00AE6E4A /* SelectionRootViewController.swift */; };
 		F8FCC63F6D4F67E233282526 /* Pods_DivBin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A75071CF649E0E2C105DD1D /* Pods_DivBin.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		C87FCE961EAB184300AE6E4A /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		C87FCE9A1EAB465C00AE6E4A /* Flying-Birds.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Flying-Birds.mp4"; sourceTree = "<group>"; };
 		C87FCE9C1EABA17900AE6E4A /* SelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
+		C87FCEA01EABB89C00AE6E4A /* SelectionRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionRootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				C87FCE8B1EAB120300AE6E4A /* SplashViewController.swift */,
 				C87FCE921EAB12B500AE6E4A /* CameraViewController.swift */,
+				C87FCEA01EABB89C00AE6E4A /* SelectionRootViewController.swift */,
 				C87FCE9C1EABA17900AE6E4A /* SelectionViewController.swift */,
 			);
 			name = ViewControllers;
@@ -159,7 +162,7 @@
 				TargetAttributes = {
 					C87FCE751EAB0BCC00AE6E4A = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = VTH3535D42;
+						DevelopmentTeam = Z88HQX98VL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87FCEA11EABB89C00AE6E4A /* SelectionRootViewController.swift in Sources */,
 				C87FCE7A1EAB0BCC00AE6E4A /* AppDelegate.swift in Sources */,
 				C87FCE9D1EABA17900AE6E4A /* SelectionViewController.swift in Sources */,
 				C87FCE8C1EAB120300AE6E4A /* SplashViewController.swift in Sources */,
@@ -377,7 +381,7 @@
 			baseConfigurationReference = 039CEB791BB4D465250C4DD3 /* Pods-DivBin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;
@@ -391,7 +395,7 @@
 			baseConfigurationReference = 5380986E795E8C8B4D9EA126 /* Pods-DivBin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;

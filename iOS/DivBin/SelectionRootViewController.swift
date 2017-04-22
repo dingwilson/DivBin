@@ -1,5 +1,5 @@
 //
-//  SelectionViewController.swift
+//  SelectionRootViewController.swift
 //  DivBin
 //
 //  Created by Wilson Ding on 4/22/17.
@@ -8,26 +8,23 @@
 
 import UIKit
 
-class SelectionViewController: UIViewController {
+class SelectionRootViewController: UIViewController {
+    
+    var currentImage: UIImage?
+    var tags: [Any]?
 
-    @IBOutlet weak var imageView: UIImageView!
-    
-    @IBAction func didPressCompost(_ sender: Any) {
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didPressTrash(_ sender: Any) {
-        
-    }
-    
-    @IBAction func didPressRecycle(_ sender: Any) {
-        
-    }
-    
-    @IBAction func didPressDonate(_ sender: Any) {
-        
-    }
-    
+
     /*
     // MARK: - Navigation
 
