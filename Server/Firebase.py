@@ -6,35 +6,41 @@ FIREBASE_URL = "https://divbin-1782f.firebaseio.com/"
 def getTrash():
     trashURL = FIREBASE_URL + "Trash.json"
     req = requests.get(trashURL)
-    return req.content
+    return json.loads(req.content)
 
 def getRecycle():
-    return 'Recycle'
+    recycleURL = FIREBASE_URL + "Recycle.json"
+    req = requests.get(recycleURL)
+    return json.loads(req.content)
 
 def getCompost():
-    return 'Compost'
+    compostURL = FIREBASE_URL + "Compost.json"
+    req = requests.get(compostURL)
+    return json.loads(req.content)
 
 def getDonate():
-    return 'Donate'
+    donateURL = FIREBASE_URL + "Donate.json"
+    req = requests.get(donateURL)
+    return json.loads(req.content)
 
 def addItem(category, item):
 
     putURL = FIREBASE_URL
 
     # TRASH
-    if (category == 0): 
+    if (category == "trash"): 
         putURL += 'Trash.json'
 
     # RECYCLE
-    elif (category == 1):
+    elif (category == "recycle"):
         putURL += 'Recycle.json'
 
     # COMPOST
-    elif (category == 2):
+    elif (category == "compost"):
         putURL += 'Compost.json'
 
     # DONATE
-    elif (category == 3):
+    elif (category == "donate"):
         putURL += 'Donate.json'
 
     else:
@@ -45,4 +51,3 @@ def addItem(category, item):
     }
 
     req = requests.patch(putURL, json.dumps(data))
-    
