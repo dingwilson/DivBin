@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
 import Firebase
+import json
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 test = [
     {
@@ -14,21 +15,21 @@ test = [
     }
 ]
 
-@app.route('/', methods=['GET'])
+@application.route('/', methods=['GET'])
 def root():
     return 'Hello World'
 
-@app.route('/test', methods=['GET'])
+@application.route('/test', methods=['GET'])
 def testRoute():
     return jsonify(test)
 
-@app.route('/postTest', methods=['POST'])
+@application.route('/postTest', methods=['POST'])
 def post():
     content = request.get_json(silent = True)
     print(content)
     return jsonify(content)
 
-@app.route('/lists/<string:id>/<string:item>', methods=['GET'])
+@application.route('/lists/<string:id>/<string:item>', methods=['GET'])
 def addItemToList(id,item):
 
     Firebase.addItem(id, item)
@@ -38,7 +39,7 @@ def addItemToList(id,item):
 
     return jsonify(result)
 
-@app.route('/analyze/<string:str>', methods=['GET'])
+@application.route('/analyze/<string:str>', methods=['GET'])
 def analyze(str):
 
     items = str.split(',')
@@ -48,27 +49,31 @@ def analyze(str):
     recycle = 0
     compost = 0
     donate = 0
-      
-    trashItems = Firebase.getTrash().keys()
-    recycleItems = Firebase.getRecycle().keys()
-    compostItems = Firebase.getCompost().keys()
-    donateItems = Firebase.getDonate().keys()
 
     for item in items:
-        item = item.lower()
-        if item in trashItems:
-            total += 1
-            trash += 1
-        elif item in recycleItems:
-            total += 1
-            recycle += 1
-        elif item in compostItems:
-            total += 1
-            compost += 1
-        elif item in donateItems:
-            total += 1
-            donate += 1
+        res = Firebase.getItem(item)
+        if (res is not None):
+            total+=1
+            if (res == "trash"):
+                trash += 1
+            elif (res == "recycle"):
+                recycle += 1
+            elif (res == "compost"):
+                compost += 1
+            elif (res == "donate"):
+                donate += 1
+
     
+    if (total == 0):
+        data = {
+            "Trash": 0.00,
+            "Recycle": 0.00,
+            "Compost": 0.00,
+            "Donate": 0.00
+        }
+
+        return jsonify(data)
+
     data = {
         "Trash": float(trash)/total,
         "Recycle": float(recycle)/total,
@@ -78,5 +83,8 @@ def analyze(str):
 
     return jsonify(data)
 
+    
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
