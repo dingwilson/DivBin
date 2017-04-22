@@ -13,6 +13,10 @@ import Alamofire
 import SwiftyJSON
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
 
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -26,7 +30,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     let cameraTimerInterval: TimeInterval = 3
 
-    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "sound", "still life", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
+    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "sound", "still life", "stripe", "transportation system", "travel", "urban", "vehicle", "wallpaper", "wear", "window"]
 
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
@@ -199,7 +203,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     let output = outputs?[0]
                     self.tags = [Any]()
                     for concepts: ClarifaiConcept in (output?.concepts)! {
-                        self.tags.append(concepts.conceptName)
+                        self.tags.append(concepts.conceptName as String)
                     }
                     
                     self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
@@ -249,7 +253,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                                 }
                             }
                             
-                            self.updatePercentages()
+                            DispatchQueue.main.async {
+                                self.updatePercentages()
+                            }
+                            
                         case .failure(let error):
                             print(error)
                         }
@@ -298,9 +305,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     self.firstDescription.isHidden = false
                 
             default: print("Error: There are more than 4 items")
-                
-            self.descriptionArray = []
             }
+        
+        self.descriptionArray = []
     }
 
     func loadServerURL() {

@@ -9,6 +9,10 @@
 import UIKit
 
 class SelectionViewController: UIViewController {
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
 
     @IBOutlet weak var imageView: UIImageView!
     

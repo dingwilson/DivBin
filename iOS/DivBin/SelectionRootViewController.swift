@@ -8,11 +8,14 @@
 
 import UIKit
 
-class SelectionRootViewController: UIViewController {
+class SelectionRootViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    
     
     var currentImage: UIImage?
     var tags: [Any]?
@@ -20,18 +23,37 @@ class SelectionRootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         imageView.image = currentImage
         
         print(tags)
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (tags?.count)!
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        if let stringTag = tags {
+            cell.textLabel?.text = stringTag[indexPath.row] as? String
+        }
+        
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "goToChoose", sender: self)
+    }
 
     /*
     // MARK: - Navigation

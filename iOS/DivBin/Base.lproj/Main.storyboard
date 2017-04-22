@@ -333,7 +333,7 @@
                                 <rect key="frame" x="0.0" y="297" width="375" height="370"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GJE-5i-30E">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="GJE-5i-30E">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GJE-5i-30E" id="zNF-Uv-bhy">
@@ -359,7 +359,7 @@
                     <connections>
                         <outlet property="imageView" destination="UjN-Hf-9MZ" id="OQJ-rQ-n7D"/>
                         <outlet property="tableView" destination="rZA-xz-AZL" id="uHA-qy-scU"/>
-                        <segue destination="H50-G8-yEX" kind="show" id="cJd-0G-x49"/>
+                        <segue destination="H50-G8-yEX" kind="show" identifier="goToChoose" id="cJd-0G-x49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GU5-rR-zgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -369,7 +369,7 @@
         <!--Navigation Controller-->
         <scene sceneID="n5Y-O0-1Sh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tf9-RG-kkb" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Tf9-RG-kkb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FZN-HB-uee">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

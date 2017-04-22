@@ -10,6 +10,10 @@ import UIKit
 import SwiftVideoBackground
 
 class SplashViewController: UIViewController {
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
 
     @IBOutlet weak var backgroundVideo: BackgroundVideo!
     
