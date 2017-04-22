@@ -62,6 +62,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         fourthDescription.isHidden = true
         
         loadCamera()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         self.checkTimer = Timer.scheduledTimer(timeInterval: cameraTimerInterval, target: self, selector: #selector(self.takePhoto), userInfo: nil, repeats: true)
     }
