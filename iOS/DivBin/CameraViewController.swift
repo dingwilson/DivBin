@@ -18,7 +18,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     let cameraTimerInterval: TimeInterval = 3
     
-    let blacklistWords: [String] = ["adult", "building", "business", "education", "exhibition", "indoors", "internet", "light", "modern", "music", "no person", "one", "people", "recreation", "room"]
+    let blacklistWords: [String] = ["adult", "building", "business", "connection", "education", "exhibition", "indoors", "industry", "internet", "light", "modern", "museum", "music", "no person", "office", "one", "people", "performance", "recreation", "room"]
     
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
