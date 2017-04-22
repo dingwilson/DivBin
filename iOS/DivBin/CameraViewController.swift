@@ -22,9 +22,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet weak var secondDescription: UILabel!
     @IBOutlet weak var firstDescription: UILabel!
     
+    var descriptionArray: [String] = []
+    
     let cameraTimerInterval: TimeInterval = 3
     
-    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
+    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "sound", "still life", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
     
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
@@ -212,7 +214,14 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         switch response.result {
                         case .success(let value):
                             let json = JSON(value)
-                            print("JSON: \(json)")
+                            
+                            let trash = json["Trash"]
+                            let donate = json["Donate"]
+                            let compost = json["Compost"]
+                            let recycle = json["Recycle"]
+                            
+                            // self.descriptionArray.append("CODE")
+                            
                         case .failure(let error):
                             print(error)
                         }
@@ -223,6 +232,49 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 }
             })
         })
+    }
+    
+    func updatePercentages() {
+        DispatchQueue.main.async() {
+            self.firstDescription.isHidden = true
+            self.secondDescription.isHidden = true
+            self.thirdDescription.isHidden = true
+            self.fourthDescription.isHidden = true
+            
+            switch self.descriptionArray.count {
+            case 0: self.firstDescription.text = "Object not recognized. Help manually input this!"
+                    self.firstDescription.isHidden = false
+                
+            case 1: self.firstDescription.text = self.descriptionArray[0]
+                    self.firstDescription.isHidden = false
+                
+            case 2: self.secondDescription.text = self.descriptionArray[0]
+                    self.firstDescription.text = self.descriptionArray[1]
+                    self.secondDescription.isHidden = false
+                    self.firstDescription.isHidden = false
+                
+            case 3: self.thirdDescription.text = self.descriptionArray[0]
+                    self.secondDescription.text = self.descriptionArray[1]
+                    self.firstDescription.text = self.descriptionArray[2]
+                    self.thirdDescription.isHidden = false
+                    self.secondDescription.isHidden = false
+                    self.firstDescription.isHidden = false
+                
+                
+            case 4: self.fourthDescription.text = self.descriptionArray[0]
+                    self.thirdDescription.text = self.descriptionArray[1]
+                    self.secondDescription.text = self.descriptionArray[2]
+                    self.firstDescription.text = self.descriptionArray[3]
+                    self.fourthDescription.isHidden = false
+                    self.thirdDescription.isHidden = false
+                    self.secondDescription.isHidden = false
+                    self.firstDescription.isHidden = false
+                
+            default: print("Error: There are more than 4 items")
+                
+            self.descriptionArray = []
+            }
+        }
     }
     
     func loadServerURL() {
