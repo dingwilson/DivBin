@@ -28,19 +28,19 @@ def addItem(category, item):
     putURL = FIREBASE_URL
 
     # TRASH
-    if (category == 0): 
+    if (category == "trash"): 
         putURL += 'Trash.json'
 
     # RECYCLE
-    elif (category == 1):
+    elif (category == "recycle"):
         putURL += 'Recycle.json'
 
     # COMPOST
-    elif (category == 2):
+    elif (category == "compost"):
         putURL += 'Compost.json'
 
     # DONATE
-    elif (category == 3):
+    elif (category == "donate"):
         putURL += 'Donate.json'
 
     else:

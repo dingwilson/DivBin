@@ -28,7 +28,7 @@ def post():
     print(content)
     return jsonify(content)
 
-@app.route('/lists/<int:id>/<string:item>', methods=['GET'])
+@app.route('/lists/<string:id>/<string:item>', methods=['GET'])
 def addItemToList(id,item):
 
     Firebase.addItem(id, item)
@@ -48,7 +48,7 @@ def analyze(str):
     recycle = 0
     compost = 0
     donate = 0
-
+      
     trashItems = Firebase.getTrash().keys()
     recycleItems = Firebase.getRecycle().keys()
     compostItems = Firebase.getCompost().keys()
