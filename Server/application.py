@@ -44,7 +44,7 @@ def analyze(str):
 
     items = str.split(',')
 
-    total = 0
+    total = len(items)
     trash = 0
     recycle = 0
     compost = 0
@@ -53,7 +53,6 @@ def analyze(str):
     for item in items:
         res = Firebase.getItem(item)
         if (res is not None):
-            total+=1
             if (res == "trash"):
                 trash += 1
             elif (res == "recycle"):
@@ -62,17 +61,7 @@ def analyze(str):
                 compost += 1
             elif (res == "donate"):
                 donate += 1
-
     
-    if (total == 0):
-        data = {
-            "Trash": 0.00,
-            "Recycle": 0.00,
-            "Compost": 0.00,
-            "Donate": 0.00
-        }
-
-        return jsonify(data)
 
     data = {
         "Trash": float(trash)/total,
