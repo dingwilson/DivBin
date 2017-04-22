@@ -10,11 +10,19 @@ import UIKit
 
 class SelectionRootViewController: UIViewController {
     
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     var currentImage: UIImage?
     var tags: [Any]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageView.image = currentImage
+        
+        print(tags)
 
         // Do any additional setup after loading the view.
     }

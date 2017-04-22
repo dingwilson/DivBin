@@ -176,7 +176,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let dataProvider = CGDataProvider(data: dataImage as CFData)
             let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.right)
-            self.currentImage = image
+            
+            DispatchQueue.main.async {
+                self.currentImage = image
+            }
             
             let processQueue = DispatchQueue(label: "com.wilsonding.ImageProcessing")
             
@@ -200,6 +203,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     }
                     
                     self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
+                    print(self.tags)
                     
                     DispatchQueue.main.async {
                         self.titleLabel.text = self.tags[0] as? String
@@ -213,7 +217,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
                     
                     let url = self.server! + "/analyze/" + queryStr
-//                    print(queryStr)
                     Alamofire.request(url, method: .get).validate().responseJSON { response in
                         switch response.result {
                         case .success(let value):
@@ -242,8 +245,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                             
                             for item in sorted {
                                 if (item.value != 0.0) {
-                                    self.descriptionArray.append("\(item.key) - \(item.value)")
-                                    print("\(item.key) - \(item.value)")
+                                    self.descriptionArray.append("\(item.key): \(item.value * 100)%")
                                 }
                             }
                             
@@ -325,9 +327,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToSelection" {
-            let nextVC = segue.destination as? SelectionRootViewController
-        
+        if let navVC = segue.destination as? UINavigationController{
+            if let nextVC = navVC.viewControllers[0] as? SelectionRootViewController {
+                nextVC.tags = self.tags
+                nextVC.currentImage = currentImage
+            }
         }
     }
     

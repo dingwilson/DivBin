@@ -309,10 +309,10 @@
             </objects>
             <point key="canvasLocation" x="4831" y="36"/>
         </scene>
-        <!--View Controller-->
+        <!--Which tag describes this image?-->
         <scene sceneID="cmA-Ye-F46">
             <objects>
-                <viewController id="RJM-2Y-kgW" sceneMemberID="viewController">
+                <viewController id="RJM-2Y-kgW" customClass="SelectionRootViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LfJ-pg-1nW"/>
                         <viewControllerLayoutGuide type="bottom" id="TRL-Zq-gcW"/>
@@ -321,7 +321,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UjN-Hf-9MZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UjN-Hf-9MZ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="225"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="225" id="6Td-AF-TWc"/>
@@ -353,8 +353,10 @@
                             <constraint firstItem="UjN-Hf-9MZ" firstAttribute="leading" secondItem="efr-ki-bob" secondAttribute="leading" id="o0w-dg-jrD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kEh-cU-kaP"/>
+                    <navigationItem key="navigationItem" title="Which tag describes this image?" id="kEh-cU-kaP"/>
                     <connections>
+                        <outlet property="imageView" destination="UjN-Hf-9MZ" id="OQJ-rQ-n7D"/>
+                        <outlet property="tableView" destination="rZA-xz-AZL" id="uHA-qy-scU"/>
                         <segue destination="H50-G8-yEX" kind="show" id="cJd-0G-x49"/>
                     </connections>
                 </viewController>
