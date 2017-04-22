@@ -1,0 +1,14 @@
+CHANGELOG.md
+MANIFEST.in
+README.md
+VERSION
+setup.cfg
+setup.py
+easypost/__init__.py
+easypost/version.py
+easypost.egg-info/PKG-INFO
+easypost.egg-info/SOURCES.txt
+easypost.egg-info/dependency_links.txt
+easypost.egg-info/requires.txt
+easypost.egg-info/top_level.txt
+easypost/../VERSION

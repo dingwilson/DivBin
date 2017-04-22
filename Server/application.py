@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import Firebase
+import Shipping
 import json
 
 application = Flask(__name__)
@@ -72,8 +73,14 @@ def analyze(str):
 
     return jsonify(data)
 
-    
+@application.route('/key', methods=['GET'])
+def getKey():
+    return Shipping.getKey()
 
+@application.route('/testShipment', methods=['GET'])
+def getLabel():
+    return Shipping.createShipment()
+    
 
 if __name__ == '__main__':
     application.run(debug=True)
