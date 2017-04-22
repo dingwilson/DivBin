@@ -14,6 +14,7 @@
 		C87FCE8C1EAB120300AE6E4A /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCE8B1EAB120300AE6E4A /* SplashViewController.swift */; };
 		C87FCE931EAB12B500AE6E4A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCE921EAB12B500AE6E4A /* CameraViewController.swift */; };
 		C87FCE971EAB184300AE6E4A /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE961EAB184300AE6E4A /* Keys.plist */; };
+		C87FCE9B1EAB465C00AE6E4A /* Flying-Birds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE9A1EAB465C00AE6E4A /* Flying-Birds.mp4 */; };
 		F8FCC63F6D4F67E233282526 /* Pods_DivBin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A75071CF649E0E2C105DD1D /* Pods_DivBin.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		C87FCE8B1EAB120300AE6E4A /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		C87FCE921EAB12B500AE6E4A /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		C87FCE961EAB184300AE6E4A /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		C87FCE9A1EAB465C00AE6E4A /* Flying-Birds.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Flying-Birds.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				C87FCE821EAB0BCC00AE6E4A /* LaunchScreen.storyboard */,
 				C87FCE851EAB0BCC00AE6E4A /* Info.plist */,
 				C87FCE961EAB184300AE6E4A /* Keys.plist */,
+				C87FCE9A1EAB465C00AE6E4A /* Flying-Birds.mp4 */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87FCE971EAB184300AE6E4A /* Keys.plist in Resources */,
+				C87FCE9B1EAB465C00AE6E4A /* Flying-Birds.mp4 in Resources */,
 				C87FCE841EAB0BCC00AE6E4A /* LaunchScreen.storyboard in Resources */,
 				C87FCE811EAB0BCC00AE6E4A /* Assets.xcassets in Resources */,
 				C87FCE7F1EAB0BCC00AE6E4A /* Main.storyboard in Resources */,

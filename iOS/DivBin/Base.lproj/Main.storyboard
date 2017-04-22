@@ -21,24 +21,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrZ-dt-4GU" customClass="BackgroundVideo" customModule="SwiftVideoBackground">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="578"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZI-7M-Cqp">
-                                <rect key="frame" x="124" y="315" width="126" height="37"/>
+                                <rect key="frame" x="0.0" y="578" width="375" height="89"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.83468967013888884" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="126" id="51C-5Y-WLi"/>
+                                    <constraint firstAttribute="height" constant="89" id="odk-I6-rEX"/>
                                 </constraints>
-                                <state key="normal" title="Go"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="35"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
-                                    <segue destination="cTI-L6-5QT" kind="show" id="G7e-B8-8ra"/>
+                                    <segue destination="cTI-L6-5QT" kind="show" animates="NO" id="G7e-B8-8ra"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0F4-mg-3Dn"/>
-                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="295" id="C5w-VB-2wk"/>
-                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rJa-Gj-Wrt"/>
+                            <constraint firstItem="nrZ-dt-4GU" firstAttribute="leading" secondItem="cZI-7M-Cqp" secondAttribute="leading" id="BdR-Nz-bdx"/>
+                            <constraint firstItem="nrZ-dt-4GU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HLa-fC-hlS"/>
+                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="top" secondItem="nrZ-dt-4GU" secondAttribute="bottom" id="QpY-vZ-bwS"/>
+                            <constraint firstItem="cZI-7M-Cqp" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="VCc-CK-J1E"/>
+                            <constraint firstAttribute="trailing" secondItem="nrZ-dt-4GU" secondAttribute="trailing" id="crq-CR-NNb"/>
+                            <constraint firstItem="nrZ-dt-4GU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ieY-U3-0Zw"/>
+                            <constraint firstItem="nrZ-dt-4GU" firstAttribute="trailing" secondItem="cZI-7M-Cqp" secondAttribute="trailing" id="rby-j7-Mer"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backgroundVideo" destination="nrZ-dt-4GU" id="Mpj-mn-CT5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
