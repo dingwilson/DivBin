@@ -13,7 +13,7 @@ import Alamofire
 import SwiftyJSON
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
-    
+
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var incorrectButton: UIButton!
@@ -21,22 +21,25 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet weak var thirdDescription: UILabel!
     @IBOutlet weak var secondDescription: UILabel!
     @IBOutlet weak var firstDescription: UILabel!
-    
+
     var descriptionArray: [String] = []
-    
+
     let cameraTimerInterval: TimeInterval = 3
-    
+
     let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "sound", "still life", "stripe", "transportation system", "travel", "vehicle", "wallpaper", "window"]
-    
+
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
-    
+    var currentImage: UIImage?
+
     var app: ClarifaiApp?
     var server: String?
     
+    var tags = [Any]()
+
     var checkTimer: Timer!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +61,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         self.checkTimer = Timer.scheduledTimer(timeInterval: cameraTimerInterval, target: self, selector: #selector(self.takePhoto), userInfo: nil, repeats: true)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -68,7 +71,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         self.checkTimer.invalidate()
     }
-    
+
     func loadClarifaiKeys() {
         if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
             let keys = NSDictionary(contentsOf: url) as? [String:Any] {
@@ -86,7 +89,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             fatalError("Error: Could not find Keys.plist")
         }
     }
-    
+
     func loadCamera() {
         captureSession = AVCaptureSession()
         captureSession?.sessionPreset = AVCaptureSessionPresetPhoto
@@ -126,7 +129,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             fatalError("Error: Cannot setup input for captureSession")
         }
     }
-    
+
     func findDefaultDevice() -> AVCaptureDevice {
         if let device = AVCaptureDevice.defaultDevice(withDeviceType: AVCaptureDeviceType.builtInDualCamera,
                                                       mediaType: AVMediaTypeVideo,
@@ -140,7 +143,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             fatalError("All supported devices are expected to have at least one of the queried capture devices.")
         }
     }
-    
+
     func takePhoto() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecJPEG,
                                                        AVVideoCompressionPropertiesKey: [AVVideoQualityKey : NSNumber(value: 0.7)]])
@@ -159,7 +162,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             self.cameraOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
-    
+
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         
         if let error = error {
@@ -174,6 +177,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.right)
             
+            DispatchQueue.main.async {
+                self.currentImage = image
+            }
+            
             let processQueue = DispatchQueue(label: "com.wilsonding.ImageProcessing")
             
             processQueue.async {
@@ -183,33 +190,33 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             print("Encountered error with capturing image")
         }
     }
-    
+
     func processImage(image: UIImage) {
         app?.getModelByName("general-v1.3", completion: { (model, error) in
             let clarifaiImage = ClarifaiImage(image: image)
             model?.predict(on: [clarifaiImage!], completion: {(outputs, error) in
                 if error == nil {
                     let output = outputs?[0]
-                    var tags = [Any]()
+                    self.tags = [Any]()
                     for concepts: ClarifaiConcept in (output?.concepts)! {
-                        tags.append(concepts.conceptName)
+                        self.tags.append(concepts.conceptName)
                     }
                     
-                    tags = tags.filter({!self.blacklistWords.contains($0 as! String)})
+                    self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
+                    print(self.tags)
                     
                     DispatchQueue.main.async {
-                        self.titleLabel.text = tags[0] as? String
+                        self.titleLabel.text = self.tags[0] as? String
                         self.titleLabel.isHidden = false
                         self.incorrectButton.isHidden = false
                     }
                     
-                    var queryStr = tags.description
+                    var queryStr = self.tags.description
                     queryStr = queryStr.replacingOccurrences(of: " ", with: "")
                     queryStr.remove(at: queryStr.startIndex)
                     queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
                     
                     let url = self.server! + "/analyze/" + queryStr
-//                    print(queryStr)
                     Alamofire.request(url, method: .get).validate().responseJSON { response in
                         switch response.result {
                         case .success(let value):
@@ -238,11 +245,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                             
                             for item in sorted {
                                 if (item.value != 0.0) {
-                                    self.descriptionArray.append("\(item.key) - \(item.value)")
-                                    print("\(item.key) - \(item.value)")
+                                    self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
                                 }
                             }
                             
+                            self.updatePercentages()
                         case .failure(let error):
                             print(error)
                         }
@@ -254,9 +261,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             })
         })
     }
-    
+
     func updatePercentages() {
-        DispatchQueue.main.async() {
             self.firstDescription.isHidden = true
             self.secondDescription.isHidden = true
             self.thirdDescription.isHidden = true
@@ -295,9 +301,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 
             self.descriptionArray = []
             }
-        }
     }
-    
+
     func loadServerURL() {
         if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
             let keys = NSDictionary(contentsOf: url) as? [String:Any] {
@@ -311,8 +316,22 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             fatalError("Error: Could not find Keys.plist")
         }
     }
-    
+
     @IBAction func didPressIncorrectButton(_ sender: Any) {
         self.performSegue(withIdentifier: "goToSelection", sender: self)
     }
+
+    @IBAction func unwindToVC(segue: UIStoryboardSegue) { // Unwinding segue
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navVC = segue.destination as? UINavigationController{
+            if let nextVC = navVC.viewControllers[0] as? SelectionRootViewController {
+                nextVC.tags = self.tags
+                nextVC.currentImage = currentImage
+            }
+        }
+    }
+    
 }
