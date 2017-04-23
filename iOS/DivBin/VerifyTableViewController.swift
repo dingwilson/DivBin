@@ -31,6 +31,7 @@ class VerifyTableViewController: UITableViewController {
         databaseRef = FIRDatabase.database().reference()
         
         databaseRef = FIRDatabase.database().reference()
+        
         itemsRef = databaseRef?.child("Timeline").observe(.childAdded, with: { (snapshot) -> Void in
             
             let value = snapshot.value as? NSDictionary
@@ -51,6 +52,8 @@ class VerifyTableViewController: UITableViewController {
             self.timelineData.append(timelineElem)
             self.tableView.reloadData()
         })
+    
+
     }
 
     override func didReceiveMemoryWarning() {
