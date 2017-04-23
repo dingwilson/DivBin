@@ -10,7 +10,7 @@ import UIKit
 
 class MainScrollViewController: UIViewController {
     
-    private let vcInScrollView : [String] = ["ProfileView", "CameraView", "PledgeView"]
+    private let vcInScrollView : [String] = ["ProfileView", "PledgeView", "CameraView"]
     
     private let indexOfInitialVC : CGFloat = 1 // Index of Initial VC to show
     

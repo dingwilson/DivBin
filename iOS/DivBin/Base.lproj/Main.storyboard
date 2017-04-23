@@ -284,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkY-jZ-DOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="37.331334332833585"/>
+            <point key="canvasLocation" x="1084" y="920"/>
         </scene>
         <!--Pledge View Controller-->
         <scene sceneID="r7k-JH-c7b">
@@ -405,9 +405,7 @@
                             <constraint firstItem="MJb-AR-n6a" firstAttribute="leading" secondItem="Jmc-Vd-RE4" secondAttribute="leading" id="vQ0-G9-Ims"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cNb-UG-U0A">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="psZ-EU-C56"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="cNb-UG-U0A"/>
                     <connections>
                         <outlet property="backgroundVideo" destination="MJb-AR-n6a" id="q4k-pN-0w7"/>
                         <outlet property="numberOfPledges" destination="9ZF-6O-6Yj" id="7EL-mz-cPA"/>
@@ -416,7 +414,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sep-LC-Qch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="939.58020989505258"/>
+            <point key="canvasLocation" x="2436" y="36"/>
         </scene>
         <!--Verify Table View Controller-->
         <scene sceneID="0Hw-vm-Kk9">
@@ -509,7 +507,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6W-Et-R9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3604" y="939.58020989505258"/>
+            <point key="canvasLocation" x="3604" y="36"/>
         </scene>
         <!--Selection View Controller-->
         <scene sceneID="kaE-JI-F0B">
@@ -636,7 +634,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IyG-WC-IZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eXA-g6-5fD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4829.6000000000004" y="35.532233883058474"/>
+            <point key="canvasLocation" x="4815" y="920"/>
         </scene>
         <!--Selection Root View Controller-->
         <scene sceneID="cmA-Ye-F46">
@@ -705,7 +703,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GU5-rR-zgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="chl-hu-oz6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3604" y="35.532233883058474"/>
+            <point key="canvasLocation" x="3604" y="920"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n5Y-O0-1Sh">
@@ -723,7 +721,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OnD-AO-lsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="38"/>
+            <point key="canvasLocation" x="2436" y="920"/>
         </scene>
         <!--Splash Login View Controller-->
         <scene sceneID="hIo-ER-01r">
@@ -844,7 +842,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Yz-1j-vue" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="940.47976011994012"/>
+            <point key="canvasLocation" x="1084" y="36"/>
         </scene>
     </scenes>
     <resources>
