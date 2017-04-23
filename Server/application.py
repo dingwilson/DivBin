@@ -1,6 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import Firebase
-import Shipping
 import json
 
 application = Flask(__name__)
@@ -73,13 +72,17 @@ def analyze(str):
 
     return jsonify(data)
 
-@application.route('/key', methods=['GET'])
-def getKey():
-    return Shipping.getKey()
+@application.route('/labels/<string:name>/<string:address>/<string:city>/<string:state>/<string:zipNum>', methods=['GET'])
+def generateLabel(name, address, city, state, zipNum):
+    data = {
+        "Name": name.replace("%20", " ").upper(),
+        "Address": address.replace("%20", " ").upper(),
+        "City": city.replace("%20", " ").upper(),
+        "State": state.replace("%20", " ").upper(),
+        "Zip": zipNum.replace("%20", " ").upper()
 
-@application.route('/testShipment', methods=['GET'])
-def getLabel():
-    return Shipping.createShipment()
+    }
+    return render_template('shipping.html', addressData = data)
     
 
 if __name__ == '__main__':
