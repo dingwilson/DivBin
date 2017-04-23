@@ -16,10 +16,13 @@ class PledgeViewController: UIViewController {
     var storageRef: FIRStorageReference!
     var databaseRef: FIRDatabaseReference!
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         storageRef = FIRStorage.storage().reference()
         databaseRef = FIRDatabase.database().reference()
+        download()
         // Do any additional setup after loading the view.
     }
 
@@ -70,6 +73,22 @@ extension PledgeViewController: ImagePickerDelegate {
             // Metadata contains file metadata such as size, content-type, and download URL.
             let downloadURL = metadata.downloadURL
         }
+    }
+    
+    func download() {
+        let islandRef = storageRef.child("test")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        islandRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data!)
+                self.imageView.image = image
+            }
+        }
+        
     }
     
 }
