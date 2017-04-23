@@ -240,7 +240,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         
                         var tag = item as? String
                         tag = tag?.replacingOccurrences(of: " ", with: "")
-                        print(tag!)
+                        
                         if (self.dataset.keys.contains(tag!)) {
                             let type = self.dataset[tag!]
                             if (type == "donate") {
@@ -254,56 +254,38 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                             }
                         }
                         
+                        let fTrash = Float(trash) / Float(total)
+                        let fRecycle = Float(recycle) / Float(total)
+                        let fCompost = Float(compost) / Float(total)
+                        let fDonate = Float(donate) / Float(total)
                         
+                        let dict = [
+                            "Trash":fTrash,
+                            "Donate":fDonate,
+                            "Compost":fCompost,
+                            "Recycle":fRecycle
+                        ]
+
+                        let sorted = dict.sorted(by: {
+                            let obj1 = dict[$0.key]
+                            let obj2 = dict[$1.key]
+                            if (obj1! - obj2! > 0) {
+                                return true
+                            }
+                            return false
+                        })
+
+                        for item in sorted {
+                           
+                            if (item.value != 0.0) {
+                                self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
+                            }
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.updatePercentages()
+                        }
                     }
-                    
-//                    var queryStr = self.tags.description
-//                    queryStr = queryStr.replacingOccurrences(of: " ", with: "")
-//                    queryStr.remove(at: queryStr.startIndex)
-//                    queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
-//                    
-//                    let url = self.server! + "/analyze/" + queryStr
-//                    Alamofire.request(url, method: .get).validate().responseJSON { response in
-//                        switch response.result {
-//                        case .success(let value):
-//                            let json = JSON(value)
-//                            let trash = json["Trash"].doubleValue
-//                            let donate = json["Donate"].doubleValue
-//                            let compost = json["Compost"].doubleValue
-//                            let recycle = json["Recycle"].doubleValue
-//                            
-//                    
-//                            let dict = [
-//                                "Trash":trash,
-//                                "Donate":donate,
-//                                "Compost":compost,
-//                                "Recycle":recycle
-//                            ]
-//                            
-//                            let sorted = dict.sorted(by: {
-//                                let obj1 = dict[$0.key]
-//                                let obj2 = dict[$1.key]
-//                                if (obj1! - obj2! > 0) {
-//                                    return true
-//                                }
-//                                return false
-//                            })
-//                            
-//                            for item in sorted {
-//                                if (item.value != 0.0) {
-//                                    self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
-//                                }
-//                            }
-//                            
-//                            DispatchQueue.main.async {
-//                                self.updatePercentages()
-//                            }
-//                            
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                    }
-//                    
                 } else {
                     print("Error: \(String(describing: error?.localizedDescription))")
                 }
