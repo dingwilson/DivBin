@@ -31,7 +31,7 @@ class SelectionViewController: UIViewController {
         
         imageView?.image = currentImage
         titleLabel.text = tag
-        ref = FIRDatabase.database().reference()
+        ref = FIRDatabase.database().reference().child("Items")
     
     }
     

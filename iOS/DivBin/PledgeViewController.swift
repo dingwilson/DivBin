@@ -10,6 +10,7 @@ import UIKit
 import ImagePicker
 import FirebaseStorage
 import FirebaseDatabase
+import FirebaseAuth
 
 class PledgeViewController: UIViewController {
     
@@ -62,9 +63,21 @@ extension PledgeViewController: ImagePickerDelegate {
     }
     
     func upload(image: UIImage) {
+        let key = databaseRef.child("Timeline").childByAutoId().key
+        let useruid = FIRAuth.auth()!.currentUser!.uid
+        
+        let metad = [
+            "User":useruid,
+            "Up":0,
+            "Down": 0
+        ] as [String : Any]
+        
+        databaseRef.child("Timeline").child(key).setValue(metad)
+        
         let data = UIImageJPEGRepresentation(image, 0.5)
         
-        let uploadRef = storageRef.child("test")
+        let uploadRef = storageRef.child(key)
+        
         let uploadTask = uploadRef.put(data!, metadata:nil) { (metadata, error) in
             guard let metadata = metadata else {
                 // Uh-oh, an error occurred!
