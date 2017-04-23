@@ -28,9 +28,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     var descriptionArray: [String] = []
 
-    let cameraTimerInterval: TimeInterval = 3
+    let cameraTimerInterval: TimeInterval = 2
 
-    let blacklistWords: [String] = ["abstract", "adult", "art", "artistic", "astronomy", "background", "blur", "bright", "building", "business", "car", "color", "commerce", "conceptual", "connection", "contemporary", "dark", "design", "drag race", "drive", "eclipse", "education", "equipment", "exhibition", "family", "financial security", "futuristic", "indoors", "industry", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "money", "modern", "moon", "museum", "music", "no person", "offense", "office", "one", "pattern", "people", "performance", "portrait", "recreation", "room", "science", "shining", "sky", "sound", "still life", "stripe", "transportation system", "travel", "urban", "vehicle", "wallpaper", "wear", "window"]
+    let blacklistWords: [String] = ["abstract", "action", "adolescent", "adult", "aircraft", "architecture", "art", "artistic", "astronomy", "auto racing", "background", "band", "banking", "bathroom", "battle", "bird", "blur", "bright", "building", "business", "car", "carnival", "celebration", "ceremony", "city", "color", "commerce", "competition", "conceptual", "concert", "connection", "contemporary", "craft", "creativity", "danger", "dark", "daylight", "design", "displayed", "drag race", "drive", "eclipse", "education", "empty", "environment", "equipment", "exhibition", "face", "family", "fashion", "festival", "financial security", "flame", "futuristic", "girl", "grinder", "group", "hairdo", "healthcare", "horizontal", "illuminated", "illustration", "indoors", "industry", "inside", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "man", "many", "military", "mirror", "money", "modern", "moon", "motion", "movie", "museum", "music", "musician", "nature", "nightclub", "no person", "offense", "office", "one", "outdoors", "pattern", "people", "performance", "police", "portrait", "production", "public show", "race", "recreation", "reflection", "room", "science", "school", "screen", "service", "shining", "shopping", "side view", "singer", "skill", "sky", "space", "stage", "strange", "street", "soap", "sound", "spotlight", "still life", "stock", "stripe", "text", "texture", "transportation system", "travel", "urban", "vector", "vehicle", "vertical", "wallpaper", "wear", "window", "woman", "young"]
 
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
@@ -56,10 +56,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         titleLabel.isHidden = true
         incorrectButton.isHidden = true
-        firstDescription.isHidden = true
         secondDescription.isHidden = true
         thirdDescription.isHidden = true
         fourthDescription.isHidden = true
+        
+        firstDescription.text = "Point your camera at an object to begin..."
         
         loadCamera()
     }
@@ -100,7 +101,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     func loadCamera() {
         captureSession = AVCaptureSession()
-        captureSession?.sessionPreset = AVCaptureSessionPresetPhoto
+        captureSession?.sessionPreset = AVCaptureSessionPreset640x480
         cameraOutput = AVCapturePhotoOutput()
         
         let device = findDefaultDevice()
@@ -154,7 +155,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     func takePhoto() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecJPEG,
-                                                       AVVideoCompressionPropertiesKey: [AVVideoQualityKey : NSNumber(value: 0.7)]])
+                                                       AVVideoCompressionPropertiesKey: [AVVideoQualityKey : NSNumber(value: 0.2)]])
         
         let cameraQueue = DispatchQueue(label: "com.wilsonding.CameraQueue")
         

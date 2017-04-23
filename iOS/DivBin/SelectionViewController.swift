@@ -58,7 +58,7 @@ class SelectionViewController: UIViewController {
         
         Alamofire.request(url, method: .get).validate().responseJSON { response in
             switch response.result {
-            case .success(let _): break
+            case .success( _): break
                 // Yay
             case .failure(let error):
                 print(error)
