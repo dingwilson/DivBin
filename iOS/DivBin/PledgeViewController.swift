@@ -23,15 +23,19 @@ class PledgeViewController: UIViewController {
     @IBOutlet weak var numberOfPledges: UILabel!
     @IBOutlet weak var remainingPledges: UILabel!
     
+    var numberPledges = 0
+    private var itemsRef: FIRDatabaseHandle?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         storageRef = FIRStorage.storage().reference()
         databaseRef = FIRDatabase.database().reference()
         
         backgroundVideo.createBackgroundVideo(name: "Flying-Birds", type: "mp4")
-       
-        numberOfPledges.text = "25"
-        remainingPledges.text = "I still have 18 times to go."
+        
+        grabFromFB()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +59,27 @@ class PledgeViewController: UIViewController {
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    func grabFromFB(){
+        
+        let useruid = FIRAuth.auth()!.currentUser!.uid
 
+        databaseRef.child("Users/\(useruid)/Pledges").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let pledges = snapshot.value as? Int else {
+                return
+            }
+            
+            self.numberPledges = pledges
+            self.numberOfPledges.text = "\(self.numberPledges)"
+        })
+        
+        itemsRef = databaseRef.child("Users/\(useruid)/PledgesLeft").observe(.value, with: { (snapshot) -> Void in
+            
+            let value = snapshot.value as? Int
+            self.remainingPledges.text = "I still have \(value!) times to go."
+        })
+
+    }
 }
 
 extension PledgeViewController: ImagePickerDelegate {

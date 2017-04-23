@@ -48,7 +48,6 @@ class VerifyTableViewController: UITableViewController {
             
             self.timelineData.append(timelineElem)
             self.tableView.reloadData()
-            print(timelineElem)
         })
         
 //        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
