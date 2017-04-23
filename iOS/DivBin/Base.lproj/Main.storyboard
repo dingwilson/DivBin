@@ -295,12 +295,26 @@
                     <view key="view" contentMode="scaleToFill" id="F87-H3-Ryy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dz4-ah-LMZ">
+                                <rect key="frame" x="115" y="617" width="145" height="30"/>
+                                <state key="normal" title="Take/Select Photo"/>
+                                <connections>
+                                    <action selector="didPressPhotoButton:" destination="Vw0-q0-hbw" eventType="touchUpInside" id="Ods-wK-tYZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dz4-ah-LMZ" firstAttribute="centerX" secondItem="F87-H3-Ryy" secondAttribute="centerX" id="HOv-K5-di7"/>
+                            <constraint firstItem="dz4-ah-LMZ" firstAttribute="leading" secondItem="F87-H3-Ryy" secondAttribute="leadingMargin" constant="99" id="Vyx-F3-Hak"/>
+                            <constraint firstAttribute="bottom" secondItem="dz4-ah-LMZ" secondAttribute="bottom" constant="20" symbolic="YES" id="n9L-Bc-MyO"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sep-LC-Qch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="941"/>
+            <point key="canvasLocation" x="1084" y="940.47976011994012"/>
         </scene>
         <!--Selection View Controller-->
         <scene sceneID="kaE-JI-F0B">

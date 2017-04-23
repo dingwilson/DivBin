@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ImagePicker
 
 class PledgeViewController: UIViewController {
 
@@ -21,15 +22,31 @@ class PledgeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func didPressPhotoButton(_ sender: Any) {
+        var configuration = Configuration()
+        configuration.doneButtonTitle = "Verify"
+        configuration.noImagesTitle = "Sorry! There are no images available."
+        configuration.recordLocation = false
+        
+        let imagePicker = ImagePickerController(configuration: configuration)
+        imagePicker.imageLimit = 1
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
     }
-    */
 
+}
+
+extension PledgeViewController: ImagePickerDelegate {
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        // not sure what to do here
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        // upload UIImage to Firebase for checking
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        // no image selected
+    }
 }

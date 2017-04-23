@@ -280,7 +280,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             self.fourthDescription.isHidden = true
             
             switch self.descriptionArray.count {
-            case 0: self.firstDescription.text = "Object not recognized. Help manually input this!"
+            case 0: self.firstDescription.text = "Object not recognized. Train it!"
                     self.firstDescription.isHidden = false
                 
             case 1: self.firstDescription.text = self.descriptionArray[0]

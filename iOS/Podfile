@@ -10,4 +10,7 @@ target 'DivBin' do
   pod 'SwiftyJSON'
   pod 'SwiftVideoBackground'
   pod 'Clarifai'
+  pod 'ImagePicker'
+  pod 'Eureka'
+
 end

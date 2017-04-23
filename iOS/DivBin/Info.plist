@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>&quot;DivBin is requesting access to your photos.&quot;</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	    <key>NSExceptionDomains</key>
-	    <dict>
-	        <key>elasticbeanstalk.com</key>
-	        <dict>
-	            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-	            <true/>
-	            <key>NSIncludesSubdomains</key>
-	            <true/>
-	        </dict>
-	    </dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>elasticbeanstalk.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
