@@ -13,6 +13,8 @@ class VerifyTableViewCell: UITableViewCell {
     @IBOutlet weak var verifyImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var upValue: UILabel!
+    @IBOutlet weak var downValue: UILabel!
     
     @IBAction func didPressUpvoteButton(_ sender: Any) {
         
