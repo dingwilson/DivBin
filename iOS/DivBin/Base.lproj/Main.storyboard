@@ -505,9 +505,6 @@
                                                 <constraint firstAttribute="width" constant="25" id="wu1-pL-EnV"/>
                                             </constraints>
                                             <state key="normal" image="ThumbsDown"/>
-                                            <connections>
-                                                <action selector="didPressDownvoteButton:" destination="hyU-t1-L09" eventType="touchUpInside" id="ltz-5T-4tX"/>
-                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-x7-B1Y">
                                             <rect key="frame" x="276" y="22" width="25" height="25"/>
@@ -515,9 +512,6 @@
                                                 <constraint firstAttribute="width" constant="25" id="7Hb-a2-4xi"/>
                                             </constraints>
                                             <state key="normal" image="ThumbsUp"/>
-                                            <connections>
-                                                <action selector="didPressUpvoteButton:" destination="hyU-t1-L09" eventType="touchUpInside" id="8Tb-WA-ZMN"/>
-                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-A2-TLR">
                                             <rect key="frame" x="309" y="22" width="25" height="25"/>
@@ -561,9 +555,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="downButtonOutlet" destination="VCp-i1-jDV" id="2QV-Ja-8L9"/>
                                     <outlet property="downValue" destination="IWh-A2-TLR" id="pGe-No-3Fb"/>
                                     <outlet property="nameLabel" destination="kHS-Ch-5TL" id="8bU-P4-zfs"/>
                                     <outlet property="timestampLabel" destination="jeA-gg-vDI" id="AaL-Po-lAS"/>
+                                    <outlet property="upButtonOutlet" destination="lRs-x7-B1Y" id="6hP-qm-Ghu"/>
                                     <outlet property="upValue" destination="Sh6-lE-fLy" id="mcC-uR-qa9"/>
                                     <outlet property="verifyImage" destination="vie-do-Rhz" id="pCv-EW-gBd"/>
                                 </connections>
