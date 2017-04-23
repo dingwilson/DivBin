@@ -15,13 +15,10 @@ class VerifyTableViewCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var upValue: UILabel!
     @IBOutlet weak var downValue: UILabel!
+    @IBOutlet weak var downButtonOutlet: UIButton!
+    @IBOutlet weak var upButtonOutlet: UIButton!
     
-    @IBAction func didPressUpvoteButton(_ sender: Any) {
-        
-    }
+    var imageLink: String!
     
-    @IBAction func didPressDownvoteButton(_ sender: Any) {
-        
-    }
     
 }

@@ -91,15 +91,48 @@ class VerifyTableViewController: UITableViewController {
                     // Uh-oh, an error occurred!
                 } else {
                     // Data for "images/island.jpg" is returned
+                    cell.imageLink = self.timelineData[indexPath.row]["ID"] as! String
                     let image = UIImage(data: data!)
                     cell.verifyImage.image = image
                 }
             }
+        
             cell.timestampLabel.text = timelineData[indexPath.row]["Timestamp"] as! String
+//            messageCell.sendButtonOutlet.addTarget(self, action: #selector(ChatListTableViewController.sendButtonAction(_:)), for: UIControlEvents.touchUpInside)
+            cell.downButtonOutlet.tag = indexPath.row
+            cell.downButtonOutlet.addTarget(self, action: #selector(VerifyTableViewController.downButtonAction(_:)), for: UIControlEvents.touchUpInside)
+            cell.upButtonOutlet.tag = indexPath.row
+            cell.upButtonOutlet.addTarget(self, action: #selector(VerifyTableViewController.upButtonAction(_:)), for: UIControlEvents.touchUpInside)
+        
+        let values: String = "Timeline/\(timelineData[indexPath.row]["ID"] as! String)"
+        
+            databaseRef.child(values).observe(.value, with: { (snapshot) -> Void in
+                let values = snapshot.value as! NSDictionary
+                
+                cell.downValue.text = "\(values["Down"] as! Int)"
+                cell.upValue.text = "\(values["Up"] as! Int)"
+                
+            })
         
         return cell
     }
- 
+    
+    func downButtonAction(_ sender:UIButton!){
+        let photoID = self.timelineData[sender.tag]["ID"] as? String
+        decrementSubmission(photoID: photoID!)
+        
+        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! VerifyTableViewCell
+        cell.downButtonOutlet.isEnabled = false
+        cell.upButtonOutlet.isEnabled = false
+    }
+    
+    func upButtonAction(_ sender:UIButton!){
+        let photoID = self.timelineData[sender.tag]["ID"] as? String
+        incrementSubmission(photoID: photoID!)
+        let cell = self.tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! VerifyTableViewCell
+        cell.downButtonOutlet.isEnabled = false
+        cell.upButtonOutlet.isEnabled = false
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -162,7 +195,7 @@ class VerifyTableViewController: UITableViewController {
     }
     
     func incrementSubmission(photoID: String) {
-        
+        print("Up")
         databaseRef.child("Timeline/\(photoID)/Up").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Up = snapshot.value as? Int else {
                 return
@@ -176,7 +209,7 @@ class VerifyTableViewController: UITableViewController {
     }
     
     func decrementSubmission(photoID: String) {
-        
+        print("Down")
         databaseRef.child("Timeline/\(photoID)/Down").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Down = snapshot.value as? Int else {
                 return
@@ -184,7 +217,7 @@ class VerifyTableViewController: UITableViewController {
             
             Down-=1
             
-            self.databaseRef.child("Timeline/\(photoID)/Up").setValue(Down)
+            self.databaseRef.child("Timeline/\(photoID)/Down").setValue(Down)
         })
         
     }
