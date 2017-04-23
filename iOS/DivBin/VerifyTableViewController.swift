@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseStorage
 
 class VerifyTableViewController: UITableViewController {
 
+    var storageRef: FIRStorageReference!
+    var databaseRef: FIRDatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        storageRef = FIRStorage.storage().reference()
+        databaseRef = FIRDatabase.database().reference()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -91,5 +98,20 @@ class VerifyTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func download(data: String) {
+        let islandRef = storageRef.child(data)
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        islandRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data!)
+            }
+        }
+        
+    }
+    
 }
