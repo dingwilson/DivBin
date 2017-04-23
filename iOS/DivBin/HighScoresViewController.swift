@@ -11,6 +11,15 @@ import FirebaseDatabase
 
 class HighScoresViewController: UIViewController {
     
+    @IBOutlet weak var firstName: UILabel!
+    @IBOutlet weak var firstScore: UILabel!
+    
+    @IBOutlet weak var secondName: UILabel!
+    @IBOutlet weak var secondScore: UILabel!
+    
+    @IBOutlet weak var thirdName: UILabel!
+    @IBOutlet weak var thirdScore: UILabel!
+    
     private var itemsRef: FIRDatabaseHandle?
     var databaseRef: FIRDatabaseReference!
     var scores: Dictionary<String, Int> = [:]
@@ -19,14 +28,8 @@ class HighScoresViewController: UIViewController {
         super.viewDidLoad()
         databaseRef = FIRDatabase.database().reference()
         setupTopScores()
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func setupTopScores() {
         
         databaseRef?.child("Users/").observe(.childAdded, with: { (snapshot) -> Void in
@@ -54,7 +57,7 @@ class HighScoresViewController: UIViewController {
                 
                 let val = values[key] as! NSDictionary
                 let valScore = val["Score"] as! Int
-                let valKey = key as! String
+                let valKey = val["Username"] as! String
                 data[valKey] = valScore
                 
             }
@@ -68,19 +71,12 @@ class HighScoresViewController: UIViewController {
                 return false
             })
             
-            print(sorted)
-            // Assign labels here.
+            self.firstName.text = sorted[0].key
+            self.firstScore.text = "\(sorted[0].value)"
+            self.secondName.text = sorted[1].key
+            self.secondScore.text = "\(sorted[1].value)"
+            self.thirdName.text = sorted[2].key
+            self.thirdScore.text = "\(sorted[2].value)"
         })
-    
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
