@@ -26,6 +26,7 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
     var savedUsername : String = ""
     var savedEmail : String = ""
     var savedUID : String = ""
+    var savedMoney : Float = 0.00
     
     var isAuthViaFacebook : Bool = false
     var isAuthViaGoogle : Bool = false
@@ -55,14 +56,24 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
             let ref = FIRDatabase.database().reference()
             
             // Get User Username
-            ref.child("users/\(self.savedUID)/public/username").observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("Users/\(self.savedUID)/Username").observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let username = snapshot.value as? String else {
                     return
                 }
-                
                 self.savedUsername = username
                 
                 self.form.rowBy(tag: "usernameRow")?.updateCell()
+                self.tableView?.reloadData()
+            })
+            
+            ref.child("Users/\(self.savedUID)/Balance").observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let balance = snapshot.value as? Float else {
+                    return
+                }
+                
+                self.savedMoney = balance
+                
+                self.form.rowBy(tag: "currentMoneyRow")?.updateCell()
                 self.tableView?.reloadData()
             })
             
@@ -144,8 +155,12 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
             }
             
             <<< LabelRow(){
-                $0.title = "Current Money: $0"
-                }
+                $0.title = "Current Money: "
+                $0.tag = "currentMoneyRow"
+                $0.value = "$\(self.savedMoney)"
+                }.cellUpdate { cell, row in
+                    row.value = "$\(self.savedMoney)"
+            }
             
             +++ Section("Payment Methods")
             
