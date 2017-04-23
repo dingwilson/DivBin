@@ -8,12 +8,21 @@
 
 import UIKit
 import ImagePicker
+import FirebaseStorage
+import FirebaseDatabase
 
 class PledgeViewController: UIViewController {
-
+    
+    var storageRef: FIRStorageReference!
+    var databaseRef: FIRDatabaseReference!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        storageRef = FIRStorage.storage().reference()
+        databaseRef = FIRDatabase.database().reference()
+        download()
         // Do any additional setup after loading the view.
     }
 
@@ -43,10 +52,43 @@ extension PledgeViewController: ImagePickerDelegate {
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         // upload UIImage to Firebase for checking
+        upload(image: images[0])
         imagePicker.dismiss(animated: true, completion: nil)
+        
     }
     
     func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
         // no image selected
     }
+    
+    func upload(image: UIImage) {
+        let data = UIImageJPEGRepresentation(image, 0.5)
+        
+        let uploadRef = storageRef.child("test")
+        let uploadTask = uploadRef.put(data!, metadata:nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            let downloadURL = metadata.downloadURL
+        }
+    }
+    
+    func download() {
+        let islandRef = storageRef.child("test")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        islandRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                // Data for "images/island.jpg" is returned
+                let image = UIImage(data: data!)
+                self.imageView.image = image
+            }
+        }
+        
+    }
+    
 }
