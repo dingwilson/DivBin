@@ -143,6 +143,36 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
                     row.title = "\(self.savedUsername)"
             }
             
+            <<< LabelRow(){
+                $0.title = "Current Money: $0"
+                }
+            
+            +++ Section("Payment Methods")
+            
+            <<< LabelRow(){
+                $0.title = "Credit Card"
+                }.onCellSelection { _,_ in
+                    self.showTextInputPrompt(withMessage: "Credit Card Number:") { (userPressedOK, userInput) in
+                        if let userInput = userInput {
+                            //
+                        } else {
+                            self.createAlert(title: "Error", message: "Credit Card Number cannot be empty")
+                        }
+                    }
+                }
+            
+            <<< LabelRow(){
+                $0.title = "Link Bank Account"
+                }.onCellSelection { _,_ in
+                    self.showTextInputPrompt(withMessage: "Bank Account Number:") { (userPressedOK, userInput) in
+                        if let userInput = userInput {
+                            //
+                        } else {
+                            self.createAlert(title: "Error", message: "Bank Account Number cannot be empty")
+                        }
+                    }
+            }
+            
             +++ Section("Account Actions")
             
             <<< LabelRow(){
