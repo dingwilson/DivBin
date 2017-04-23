@@ -15,7 +15,7 @@ class VerifyTableViewController: UITableViewController {
     var storageRef: FIRStorageReference!
     var databaseRef: FIRDatabaseReference!
     private var itemsRef: FIRDatabaseHandle?
-    var timelineData = [String: Any]()
+    var timelineData = [Dictionary<String, Any>]()
     
     let profileData = {}
 //        "1Mmf9P7QfkWTkYpzHSCQXoeD6Om1": "VongolaXSky",
@@ -33,9 +33,22 @@ class VerifyTableViewController: UITableViewController {
         databaseRef = FIRDatabase.database().reference()
         itemsRef = databaseRef?.child("Timeline").observe(.childAdded, with: { (snapshot) -> Void in
             
-            self.timelineData[snapshot.key] = snapshot.value
+            let value = snapshot.value as? NSDictionary
             
-            print(self.timelineData[snapshot.key]!)
+            let imageID = snapshot.key
+            let numDown = value?["Down"] as? Int
+            let numUp = value?["Up"] as? Int
+            let userID = value?["User"] as? String
+            
+            var timelineElem = [String: Any]()
+            timelineElem["ID"] = imageID
+            timelineElem["Up"] = numUp
+            timelineElem["Down"] = numDown
+            timelineElem["User"] = userID
+            
+            self.timelineData.append(timelineElem)
+            self.tableView.reloadData()
+            print(timelineElem)
         })
         
 //        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
@@ -62,9 +75,21 @@ class VerifyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! VerifyTableViewCell
         
-//        cell?.verifyImage = image
-//        cell?.nameLabel = name
-//        cell?.timestampLabel = timestamp
+            cell.nameLabel.text = timelineData[indexPath.row]["User"] as! String
+        
+            let islandRef = storageRef.child(timelineData[indexPath.row]["ID"] as! String)
+            
+            // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+            islandRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // Data for "images/island.jpg" is returned
+                    let image = UIImage(data: data!)
+                    cell.verifyImage.image = image
+                }
+            }
+//            cell.timestampLabel.text = timelineData[indexPath.row]["Timestamp"] as! String
         
         return cell
     }
