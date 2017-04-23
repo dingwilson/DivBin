@@ -147,13 +147,13 @@ extension PledgeViewController: ImagePickerDelegate {
         
         let uploadRef = storageRef.child(key)
         
-        let uploadTask = uploadRef.put(data!, metadata:nil) { (metadata, error) in
+        uploadRef.put(data!, metadata:nil) { (metadata, error) in
             guard let metadata = metadata else {
                 // Uh-oh, an error occurred!
                 return
             }
             // Metadata contains file metadata such as size, content-type, and download URL.
-            let downloadURL = metadata.downloadURL
+            _ = metadata.downloadURL
         }
         
         databaseRef.child("Users/\(useruid)/PledgesLeft").observeSingleEvent(of: .value, with: { (snapshot) in
