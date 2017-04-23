@@ -14,12 +14,33 @@ class VerifyTableViewController: UITableViewController {
 
     var storageRef: FIRStorageReference!
     var databaseRef: FIRDatabaseReference!
+    private var itemsRef: FIRDatabaseHandle?
+    var timelineData = [String: Any]()
+    
+    let profileData = {}
+//        "1Mmf9P7QfkWTkYpzHSCQXoeD6Om1": "VongolaXSky",
+//        "FPhncEamMnXYdj1POLkIMmpMSv92": "Shodai",
+//        "S6mKQORKoKXImA5hreZHxoia99s1": "Shodai"
+//    ]
+//    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         storageRef = FIRStorage.storage().reference()
         databaseRef = FIRDatabase.database().reference()
+        
+        databaseRef = FIRDatabase.database().reference()
+        itemsRef = databaseRef?.child("Timeline").observe(.childAdded, with: { (snapshot) -> Void in
+            
+            self.timelineData[snapshot.key] = snapshot.value
+        
+        })
+        
+//        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
+//        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
+//        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -41,18 +62,17 @@ class VerifyTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return timelineData.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
+//         cell.textLabel?.text = self.timelineData[ indexPath ]
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

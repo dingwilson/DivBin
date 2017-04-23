@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hoA-1q-7Bb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -323,10 +323,10 @@
                             <constraint firstAttribute="bottom" secondItem="dz4-ah-LMZ" secondAttribute="bottom" constant="20" symbolic="YES" id="n9L-Bc-MyO"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="cNb-UG-U0A"/>
                     <connections>
                         <outlet property="imageView" destination="9yG-qO-4uh" id="B5c-rw-qod"/>
                     </connections>
-                    <navigationItem key="navigationItem" id="cNb-UG-U0A"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sep-LC-Qch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
