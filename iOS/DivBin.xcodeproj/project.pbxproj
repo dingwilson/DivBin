@@ -13,6 +13,7 @@
 		C86AA9711EAC888000B15528 /* SplashLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */; };
 		C86AA9731EAC8FCD00B15528 /* UIView+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */; };
 		C86AA9751EAC9B2300B15528 /* VerifyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9741EAC9B2300B15528 /* VerifyTableViewController.swift */; };
+		C86AA9771EAC9E1800B15528 /* VerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9761EAC9E1800B15528 /* VerifyTableViewCell.swift */; };
 		C87FCE7A1EAB0BCC00AE6E4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCE791EAB0BCC00AE6E4A /* AppDelegate.swift */; };
 		C87FCE7F1EAB0BCC00AE6E4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE7D1EAB0BCC00AE6E4A /* Main.storyboard */; };
 		C87FCE811EAB0BCC00AE6E4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE801EAB0BCC00AE6E4A /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashLoginViewController.swift; sourceTree = "<group>"; };
 		C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Alerts.swift"; sourceTree = "<group>"; };
 		C86AA9741EAC9B2300B15528 /* VerifyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyTableViewController.swift; sourceTree = "<group>"; };
+		C86AA9761EAC9E1800B15528 /* VerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyTableViewCell.swift; sourceTree = "<group>"; };
 		C87FCE761EAB0BCC00AE6E4A /* DivBin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivBin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87FCE791EAB0BCC00AE6E4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C87FCE7E1EAB0BCC00AE6E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */,
+				C86AA9761EAC9E1800B15528 /* VerifyTableViewCell.swift */,
 				C87FCE8B1EAB120300AE6E4A /* SplashViewController.swift */,
 				C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */,
 				C86AA9681EAC7AFF00B15528 /* MainScrollViewController.swift */,
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C86AA9771EAC9E1800B15528 /* VerifyTableViewCell.swift in Sources */,
 				C86AA9691EAC7AFF00B15528 /* MainScrollViewController.swift in Sources */,
 				C86AA9731EAC8FCD00B15528 /* UIView+Alerts.swift in Sources */,
 				C87FCEA11EABB89C00AE6E4A /* SelectionRootViewController.swift in Sources */,
