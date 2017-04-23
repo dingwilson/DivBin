@@ -66,6 +66,10 @@ class PledgeViewController: UIViewController {
 
         databaseRef.child("Users/\(useruid)/Pledges").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let pledges = snapshot.value as? Int else {
+                self.generateData()
+                self.numberPledges = 25
+                self.numberOfPledges.text = "\(25)"
+                
                 return
             }
             
@@ -75,10 +79,35 @@ class PledgeViewController: UIViewController {
         
         itemsRef = databaseRef.child("Users/\(useruid)/PledgesLeft").observe(.value, with: { (snapshot) -> Void in
             
-            let value = snapshot.value as? Int
-            self.remainingPledges.text = "I still have \(value!) times to go."
+            guard let value = snapshot.value as? Int else {
+                self.generateData()
+                self.remainingPledges.text = "I still have \(20) times to go."
+                return
+            }
+            
+            self.remainingPledges.text = "I still have \(value) times to go."
         })
 
+    }
+    
+    func generateData() {
+        let useruid = FIRAuth.auth()!.currentUser!.uid
+
+        let data = [
+            "Username": useruid,
+            "Address": "5054 Manzana Water Drive",
+            "Balance": 10.00,
+            "City": "Houston",
+            "Email": useruid + "@gmail.com",
+            "Pledges": 25,
+            "PledgesLeft": 20,
+            "Score": 0,
+            "State": "CA",
+            "ZIP":"88104"
+            
+        ] as [String : Any]
+        
+        databaseRef.child("Users/\(useruid)").setValue(data)
     }
     
     @IBAction func didPressShipping(_ sender: Any) {
@@ -129,6 +158,7 @@ extension PledgeViewController: ImagePickerDelegate {
             // Metadata contains file metadata such as size, content-type, and download URL.
             let downloadURL = metadata.downloadURL
         }
+        
         
         databaseRef.child("Users/\(useruid)/PledgesLeft").observeSingleEvent(of: .value, with: { (snapshot) in
             

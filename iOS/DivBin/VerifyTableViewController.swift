@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 class VerifyTableViewController: UITableViewController {
 
@@ -195,7 +196,6 @@ class VerifyTableViewController: UITableViewController {
     }
     
     func incrementSubmission(photoID: String) {
-        print("Up")
         databaseRef.child("Timeline/\(photoID)/Up").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Up = snapshot.value as? Int else {
                 return
@@ -206,10 +206,11 @@ class VerifyTableViewController: UITableViewController {
             self.databaseRef.child("Timeline/\(photoID)/Up").setValue(Up)
         })
         
+        incrementScore()
+        
     }
     
     func decrementSubmission(photoID: String) {
-        print("Down")
         databaseRef.child("Timeline/\(photoID)/Down").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Down = snapshot.value as? Int else {
                 return
@@ -219,6 +220,25 @@ class VerifyTableViewController: UITableViewController {
             
             self.databaseRef.child("Timeline/\(photoID)/Down").setValue(Down)
         })
+        
+        incrementScore()
+        
+    }
+    
+    func incrementScore() {
+        
+        let useruid = FIRAuth.auth()!.currentUser!.uid
+        
+        databaseRef.child("Users/\(useruid)/Score").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard var Score = snapshot.value as? Int else {
+                return
+            }
+            
+            Score+=1
+            
+            self.databaseRef.child("Users/\(useruid)/Score").setValue(Score)
+        })
+        
         
     }
 }

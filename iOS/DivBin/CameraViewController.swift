@@ -9,9 +9,7 @@
 import UIKit
 import AVFoundation
 import Clarifai
-import Alamofire
-import SwiftyJSON
-import Firebase
+import FirebaseDatabase
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
