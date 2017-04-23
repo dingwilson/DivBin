@@ -29,7 +29,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     var descriptionArray: [String] = []
 
-    let cameraTimerInterval: TimeInterval = 2
+    let cameraTimerInterval: TimeInterval = 3
 
     let blacklistWords: [String] = ["abstract", "action", "adolescent", "adult", "aircraft", "architecture", "art", "artistic", "astronomy", "auto racing", "background", "band", "banking", "bathroom", "battle", "bird", "blur", "bright", "building", "business", "car", "carnival", "celebration", "ceremony", "city", "color", "commerce", "competition", "conceptual", "concert", "connection", "contemporary", "craft", "creativity", "danger", "dark", "daylight", "design", "displayed", "drag race", "drive", "eclipse", "education", "empty", "environment", "equipment", "exhibition", "face", "family", "fashion", "festival", "financial security", "flame", "futuristic", "girl", "grinder", "group", "hairdo", "healthcare", "horizontal", "illuminated", "illustration", "indoors", "industry", "inside", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "man", "many", "military", "mirror", "money", "modern", "moon", "motion", "movie", "museum", "music", "musician", "nature", "nightclub", "no person", "offense", "office", "one", "outdoors", "pattern", "people", "performance", "police", "portrait", "production", "public show", "race", "recreation", "reflection", "room", "science", "school", "screen", "service", "shining", "shopping", "side view", "singer", "skill", "sky", "space", "stage", "strange", "street", "soap", "sound", "spotlight", "still life", "stock", "stripe", "text", "texture", "transportation system", "travel", "urban", "vector", "vehicle", "vertical", "wallpaper", "wear", "window", "woman", "young"]
 
@@ -236,6 +236,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     var compost = 0
                     var donate = 0
                     
+                    var dict = [
+                        "Trash" : Float(0.0),
+                        "Donate": Float(0.0),
+                        "Compost": Float(0.0),
+                        "Recycle": Float(0.0)
+                    ]
+                    
                     for item in self.tags {
                         
                         var tag = item as? String
@@ -259,32 +266,31 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         let fCompost = Float(compost) / Float(total)
                         let fDonate = Float(donate) / Float(total)
                         
-                        let dict = [
+                        dict = [
                             "Trash":fTrash,
                             "Donate":fDonate,
                             "Compost":fCompost,
                             "Recycle":fRecycle
                         ]
+                    }
 
-                        let sorted = dict.sorted(by: {
-                            let obj1 = dict[$0.key]
-                            let obj2 = dict[$1.key]
-                            if (obj1! - obj2! > 0) {
-                                return true
-                            }
-                            return false
-                        })
-
-                        for item in sorted {
-                           
-                            if (item.value != 0.0) {
-                                self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
-                            }
+                    let sorted = dict.sorted(by: {
+                        let obj1 = dict[$0.key]
+                        let obj2 = dict[$1.key]
+                        if (obj1! - obj2! > 0) {
+                            return true
                         }
-                        
-                        DispatchQueue.main.async {
-                            self.updatePercentages()
+                        return false
+                    })
+                    
+                    for item in sorted {
+                        if (item.value != 0.0) {
+                            self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
                         }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.updatePercentages()
                     }
                 } else {
                     print("Error: \(String(describing: error?.localizedDescription))")

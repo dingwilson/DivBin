@@ -10,15 +10,16 @@ import UIKit
 
 class VerifyTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var verifyImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
+    
+    @IBAction func didPressUpvoteButton(_ sender: Any) {
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBAction func didPressDownvoteButton(_ sender: Any) {
+        
     }
-
+    
 }
