@@ -74,7 +74,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cTI-L6-5QT" kind="show" animates="NO" id="G7e-B8-8ra"/>
+                                    <segue destination="L0D-db-2Ra" kind="show" id="yiV-R9-Xgx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -96,12 +96,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+            <point key="canvasLocation" x="-855" y="37"/>
+        </scene>
+        <!--Main Scroll View Controller-->
+        <scene sceneID="2yN-Es-IKf">
+            <objects>
+                <viewController id="L0D-db-2Ra" customClass="MainScrollViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zzG-A0-NGE"/>
+                        <viewControllerLayoutGuide type="bottom" id="mdL-aK-jt4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RmY-QW-5Ao">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YV-Fb-boG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0YV-Fb-boG" firstAttribute="bottom" secondItem="mdL-aK-jt4" secondAttribute="top" id="BAI-zt-5NE"/>
+                            <constraint firstItem="0YV-Fb-boG" firstAttribute="leading" secondItem="RmY-QW-5Ao" secondAttribute="leading" id="Fx1-WD-1EH"/>
+                            <constraint firstItem="0YV-Fb-boG" firstAttribute="top" secondItem="RmY-QW-5Ao" secondAttribute="top" id="nMS-oc-N1U"/>
+                            <constraint firstAttribute="trailing" secondItem="0YV-Fb-boG" secondAttribute="trailing" id="npw-Py-zQJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="0YV-Fb-boG" id="oLf-1u-WZt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oqc-73-XZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="80.799999999999997" y="36.431784107946029"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="YZv-N4-OBh">
+            <objects>
+                <viewController storyboardIdentifier="ProfileView" id="jcM-PN-HUG" customClass="ProfileViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e0z-Ty-c5M"/>
+                        <viewControllerLayoutGuide type="bottom" id="YWM-IX-a3G"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y9d-OF-E6N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Sd-Io-NmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="-784"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="B2x-GG-8Jl">
             <objects>
-                <viewController id="cTI-L6-5QT" customClass="CameraViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraView" id="cTI-L6-5QT" customClass="CameraViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O1k-HW-a9p"/>
                         <viewControllerLayoutGuide type="bottom" id="a6q-DW-TWn"/>
@@ -233,6 +283,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkY-jZ-DOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1084" y="37.331334332833585"/>
+        </scene>
+        <!--Pledge View Controller-->
+        <scene sceneID="r7k-JH-c7b">
+            <objects>
+                <viewController storyboardIdentifier="PledgeView" id="Vw0-q0-hbw" customClass="PledgeViewController" customModule="DivBin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lFv-Iz-8BG"/>
+                        <viewControllerLayoutGuide type="bottom" id="iaP-qB-hhG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F87-H3-Ryy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dz4-ah-LMZ">
+                                <rect key="frame" x="115" y="617" width="145" height="30"/>
+                                <state key="normal" title="Take/Select Photo"/>
+                                <connections>
+                                    <action selector="didPressPhotoButton:" destination="Vw0-q0-hbw" eventType="touchUpInside" id="Ods-wK-tYZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dz4-ah-LMZ" firstAttribute="centerX" secondItem="F87-H3-Ryy" secondAttribute="centerX" id="HOv-K5-di7"/>
+                            <constraint firstItem="dz4-ah-LMZ" firstAttribute="leading" secondItem="F87-H3-Ryy" secondAttribute="leadingMargin" constant="99" id="Vyx-F3-Hak"/>
+                            <constraint firstAttribute="bottom" secondItem="dz4-ah-LMZ" secondAttribute="bottom" constant="20" symbolic="YES" id="n9L-Bc-MyO"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sep-LC-Qch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="940.47976011994012"/>
         </scene>
         <!--Selection View Controller-->
         <scene sceneID="kaE-JI-F0B">

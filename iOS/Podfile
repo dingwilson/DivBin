@@ -11,4 +11,7 @@ target 'DivBin' do
   pod 'SwiftVideoBackground'
   pod 'Clarifai'
   pod 'Firebase/Database'
+  pod 'ImagePicker'
+  pod 'Eureka'
+
 end

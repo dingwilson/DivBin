@@ -29,6 +29,8 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
 
         backgroundVideo.createBackgroundVideo(name: "Flying-Birds", type: "mp4")
+        
+        setupParallax()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +54,25 @@ class SplashViewController: UIViewController {
         
         statusLabel.fadeIn()
         statusLabel.fadeOut()
+    }
+    
+    func setupParallax() {
+        // Set vertical effect
+        let verticalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        verticalMotionEffect.minimumRelativeValue = -10
+        verticalMotionEffect.maximumRelativeValue = 10
+        
+        // Set horizontal effect
+        let horizontalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontalMotionEffect.minimumRelativeValue = -10
+        horizontalMotionEffect.maximumRelativeValue = 10
+        
+        // Create group to combine both
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontalMotionEffect, verticalMotionEffect]
+        
+        // Add both effects to your view
+        self.view.addMotionEffect(group)
     }
 
 }

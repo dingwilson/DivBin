@@ -15,8 +15,9 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.4.0)
-  - Clarifai (2.2.0):
+  - Clarifai (2.3.1):
     - AFNetworking (~> 3.1)
+  - Eureka (3.0.0)
   - Firebase/Core (3.16.0):
     - FirebaseAnalytics (= 3.8.0)
     - FirebaseCore (= 3.6.0)
@@ -36,29 +37,34 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - ImagePicker (2.1.1)
   - SwiftVideoBackground (0.05)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire
   - Clarifai
+  - Eureka
   - Firebase/Database
+  - ImagePicker
   - SwiftVideoBackground
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  Clarifai: f9747e7e7460159f639faa184b2ac2d793d01fa4
+  Clarifai: b1194abfaac84e743cc023d7576dc7cd1901fae5
+  Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
   Firebase: 21bf4a89d3f01bfbe11adc3a5d934a4a3d3a5fd6
   FirebaseAnalytics: 920e46455f27b0a52a80907a6d9b73ee4bd1c635
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  ImagePicker: fe4c699abb56ff03994fa98d8b02e3883ee118be
   SwiftVideoBackground: d06410e66620949981aafb9b6f3cbba962d3a5cc
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 4ade2df86d320db0b89316bcf7f7c00ab2b55b94
+PODFILE CHECKSUM: ecf38c15c08c0650dc7e4423f9545b9beb1342ab
 
 COCOAPODS: 1.2.1
