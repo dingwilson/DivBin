@@ -70,7 +70,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         loadCamera()
         
         ref = FIRDatabase.database().reference()
-        itemsRef = ref?.observe(.childAdded, with: { (snapshot) -> Void in
+        itemsRef = ref?.child("Items").observe(.childAdded, with: { (snapshot) -> Void in
             self.dataset[snapshot.key] = snapshot.value as! String
 //            self.friendsList[snapshot.key] = snapshot.value as! String
         })
