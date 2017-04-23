@@ -710,7 +710,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Tf9-RG-kkb" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FZN-HB-uee">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FZN-HB-uee">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -831,7 +831,7 @@
             <objects>
                 <navigationController storyboardIdentifier="PledgeView" automaticallyAdjustsScrollViewInsets="NO" id="bpC-fM-29x" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5V7-Qn-iwd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5V7-Qn-iwd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

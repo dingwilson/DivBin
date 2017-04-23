@@ -51,7 +51,6 @@ class VerifyTableViewController: UITableViewController {
             self.timelineData.append(timelineElem)
             self.tableView.reloadData()
         })
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,5 +158,31 @@ class VerifyTableViewController: UITableViewController {
         
     }
     
+    func incrementSubmission(photoID: String) {
+        
+        databaseRef.child("Timeline/\(photoID)/Up").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard var Up = snapshot.value as? Int else {
+                return
+            }
+            
+            Up+=1;
+            
+            self.databaseRef.child("Timeline/\(photoID)/Up").setValue(Up)
+        })
+        
+    }
     
+    func decrementSubmission(photoID: String) {
+        
+        databaseRef.child("Timeline/\(photoID)/Down").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard var Down = snapshot.value as? Int else {
+                return
+            }
+            
+            Down-=1
+            
+            self.databaseRef.child("Timeline/\(photoID)/Up").setValue(Down)
+        })
+        
+    }
 }
