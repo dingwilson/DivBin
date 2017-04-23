@@ -75,8 +75,8 @@ class HighScoresViewController: UIViewController {
             self.firstScore.text = "\(sorted[0].value)"
             self.secondName.text = sorted[1].key
             self.secondScore.text = "\(sorted[1].value)"
-            self.thirdName.text = sorted[1].key
-            self.thirdScore.text = "\(sorted[1].value)"
+            self.thirdName.text = sorted[2].key
+            self.thirdScore.text = "\(sorted[2].value)"
         })
     }
 }
