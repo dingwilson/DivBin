@@ -105,7 +105,8 @@ extension PledgeViewController: ImagePickerDelegate {
         let metad = [
             "User":useruid,
             "Up":0,
-            "Down": 0
+            "Down": 0,
+            "Timestamp" : "\(Date())"
         ] as [String : Any]
         
         databaseRef.child("Timeline").child(key).setValue(metad)

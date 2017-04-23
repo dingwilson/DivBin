@@ -39,20 +39,19 @@ class VerifyTableViewController: UITableViewController {
             let numDown = value?["Down"] as? Int
             let numUp = value?["Up"] as? Int
             let userID = value?["User"] as? String
+            let timestamp = value?["Timestamp"] as? String
             
             var timelineElem = [String: Any]()
             timelineElem["ID"] = imageID
             timelineElem["Up"] = numUp
             timelineElem["Down"] = numDown
             timelineElem["User"] = userID
+            timelineElem["Timestamp"] = timestamp
             
             self.timelineData.append(timelineElem)
             self.tableView.reloadData()
         })
         
-//        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
-//        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
-//        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +73,13 @@ class VerifyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! VerifyTableViewCell
         
-            cell.nameLabel.text = timelineData[indexPath.row]["User"] as! String
+            let desiredUID = timelineData[indexPath.row]["User"] as! String
+            databaseRef.child("Users/\(desiredUID)/Username").observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let Username = snapshot.value as? String else {
+                    return
+                }
+                cell.nameLabel.text = Username
+            })
         
             let islandRef = storageRef.child(timelineData[indexPath.row]["ID"] as! String)
             
@@ -88,7 +93,7 @@ class VerifyTableViewController: UITableViewController {
                     cell.verifyImage.image = image
                 }
             }
-//            cell.timestampLabel.text = timelineData[indexPath.row]["Timestamp"] as! String
+            cell.timestampLabel.text = timelineData[indexPath.row]["Timestamp"] as! String
         
         return cell
     }
@@ -153,5 +158,6 @@ class VerifyTableViewController: UITableViewController {
         }
         
     }
+    
     
 }
