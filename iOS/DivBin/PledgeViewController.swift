@@ -8,12 +8,18 @@
 
 import UIKit
 import ImagePicker
+import FirebaseStorage
+import FirebaseDatabase
 
 class PledgeViewController: UIViewController {
-
+    
+    var storageRef: FIRStorageReference!
+    var databaseRef: FIRDatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        storageRef = FIRStorage.storage().reference()
+        databaseRef = FIRDatabase.database().reference()
         // Do any additional setup after loading the view.
     }
 
@@ -43,10 +49,27 @@ extension PledgeViewController: ImagePickerDelegate {
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         // upload UIImage to Firebase for checking
+        upload(image: images[0])
         imagePicker.dismiss(animated: true, completion: nil)
+        
     }
     
     func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
         // no image selected
     }
+    
+    func upload(image: UIImage) {
+        let data = UIImageJPEGRepresentation(image, 0.5)
+        
+        let uploadRef = storageRef.child("test")
+        let uploadTask = uploadRef.put(data!, metadata:nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            let downloadURL = metadata.downloadURL
+        }
+    }
+    
 }
