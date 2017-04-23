@@ -136,7 +136,6 @@ class VerifyTableViewController: UITableViewController {
     }
     
     func incrementSubmission(photoID: String) {
-        print("Up")
         databaseRef.child("Timeline/\(photoID)/Up").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Up = snapshot.value as? Int else {
                 return
@@ -150,7 +149,6 @@ class VerifyTableViewController: UITableViewController {
     }
     
     func decrementSubmission(photoID: String) {
-        print("Down")
         databaseRef.child("Timeline/\(photoID)/Down").observeSingleEvent(of: .value, with: { (snapshot) in
             guard var Down = snapshot.value as? Int else {
                 return
