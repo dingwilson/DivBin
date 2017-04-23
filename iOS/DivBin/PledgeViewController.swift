@@ -34,6 +34,16 @@ class PledgeViewController: UIViewController {
         remainingPledges.text = "I still have 18 times to go."
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
+    
     @IBAction func didPressPhotoButton(_ sender: Any) {
         var configuration = Configuration()
         configuration.doneButtonTitle = "Verify"

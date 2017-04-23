@@ -35,8 +35,7 @@ class VerifyTableViewController: UITableViewController {
             
             self.timelineData[snapshot.key] = snapshot.value
             
-            print(self.timelineData[snapshot.key])
-        
+            print(self.timelineData[snapshot.key]!)
         })
         
 //        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
