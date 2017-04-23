@@ -25,8 +25,19 @@ class PledgeViewController: UIViewController {
     
     var numberPledges = 0
     private var itemsRef: FIRDatabaseHandle?
-
     
+    private var userRef: FIRDatabaseHandle?
+    private var addressRef: FIRDatabaseHandle?
+    private var cityRef: FIRDatabaseHandle?
+    private var stateRef: FIRDatabaseHandle?
+    private var zipRef: FIRDatabaseHandle?
+    
+    var username: String?
+    var address: String?
+    var city: String?
+    var state: String?
+    var zip: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         storageRef = FIRStorage.storage().reference()
@@ -78,11 +89,26 @@ class PledgeViewController: UIViewController {
             let value = snapshot.value as? Int
             self.remainingPledges.text = "I still have \(value!) times to go."
         })
-
+        
+        databaseRef.child("Users/\(useruid)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let user = snapshot.value as! NSDictionary
+            
+            self.username = user["Username"] as? String
+            self.address = user["Address"] as? String
+            self.city = user["City"] as? String
+            self.state = user["State"] as? String
+            self.zip = user["ZIP"] as? String
+            
+        })
     }
     
     @IBAction func didPressShipping(_ sender: Any) {
-        let url = URL(string: "http://sample-env-1.6xphxzzcm4.us-east-1.elasticbeanstalk.com/labels/Kevin%20Nguyen/1234%20Fake%20Street/Fake%20City/TX/44023")
+        var stringUrl = "http://sample-env-1.6xphxzzcm4.us-east-1.elasticbeanstalk.com/labels/\(String(describing: username!))/\(String(describing: address!))/\(String(describing: city!))/\(String(describing: state!))/\(String(describing: zip!))"
+        
+        stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!
+        
+        let url = URL(string: stringUrl)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     
