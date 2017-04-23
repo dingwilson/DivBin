@@ -74,6 +74,10 @@ class SplashViewController: UIViewController {
         // Add both effects to your view
         self.view.addMotionEffect(group)
     }
+    
+    @IBAction func unwindToVC(segue: UIStoryboardSegue) { // Unwinding segue
+        
+    }
 
 }
 
