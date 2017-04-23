@@ -10,6 +10,8 @@
 		C86AA9691EAC7AFF00B15528 /* MainScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9681EAC7AFF00B15528 /* MainScrollViewController.swift */; };
 		C86AA96B1EAC7D2300B15528 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA96A1EAC7D2300B15528 /* ProfileViewController.swift */; };
 		C86AA96D1EAC7DB600B15528 /* PledgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA96C1EAC7DB600B15528 /* PledgeViewController.swift */; };
+		C86AA9711EAC888000B15528 /* SplashLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */; };
+		C86AA9731EAC8FCD00B15528 /* UIView+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */; };
 		C87FCE7A1EAB0BCC00AE6E4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87FCE791EAB0BCC00AE6E4A /* AppDelegate.swift */; };
 		C87FCE7F1EAB0BCC00AE6E4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE7D1EAB0BCC00AE6E4A /* Main.storyboard */; };
 		C87FCE811EAB0BCC00AE6E4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C87FCE801EAB0BCC00AE6E4A /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		C86AA9681EAC7AFF00B15528 /* MainScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScrollViewController.swift; sourceTree = "<group>"; };
 		C86AA96A1EAC7D2300B15528 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C86AA96C1EAC7DB600B15528 /* PledgeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PledgeViewController.swift; sourceTree = "<group>"; };
+		C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashLoginViewController.swift; sourceTree = "<group>"; };
+		C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Alerts.swift"; sourceTree = "<group>"; };
 		C87FCE761EAB0BCC00AE6E4A /* DivBin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivBin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87FCE791EAB0BCC00AE6E4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C87FCE7E1EAB0BCC00AE6E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,7 +110,9 @@
 		C87FCE8D1EAB120800AE6E4A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C86AA9721EAC8FCD00B15528 /* UIView+Alerts.swift */,
 				C87FCE8B1EAB120300AE6E4A /* SplashViewController.swift */,
+				C86AA9701EAC888000B15528 /* SplashLoginViewController.swift */,
 				C86AA9681EAC7AFF00B15528 /* MainScrollViewController.swift */,
 				C87FCE921EAB12B500AE6E4A /* CameraViewController.swift */,
 				C87FCEA01EABB89C00AE6E4A /* SelectionRootViewController.swift */,
@@ -174,7 +180,7 @@
 				TargetAttributes = {
 					C87FCE751EAB0BCC00AE6E4A = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = VTH3535D42;
+						DevelopmentTeam = Z88HQX98VL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -267,10 +273,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C86AA9691EAC7AFF00B15528 /* MainScrollViewController.swift in Sources */,
+				C86AA9731EAC8FCD00B15528 /* UIView+Alerts.swift in Sources */,
 				C87FCEA11EABB89C00AE6E4A /* SelectionRootViewController.swift in Sources */,
 				C87FCE7A1EAB0BCC00AE6E4A /* AppDelegate.swift in Sources */,
 				C87FCE9D1EABA17900AE6E4A /* SelectionViewController.swift in Sources */,
 				C86AA96B1EAC7D2300B15528 /* ProfileViewController.swift in Sources */,
+				C86AA9711EAC888000B15528 /* SplashLoginViewController.swift in Sources */,
 				C86AA96D1EAC7DB600B15528 /* PledgeViewController.swift in Sources */,
 				C87FCE8C1EAB120300AE6E4A /* SplashViewController.swift in Sources */,
 				C87FCE931EAB12B500AE6E4A /* CameraViewController.swift in Sources */,
@@ -397,7 +405,7 @@
 			baseConfigurationReference = 039CEB791BB4D465250C4DD3 /* Pods-DivBin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;
@@ -411,7 +419,7 @@
 			baseConfigurationReference = 5380986E795E8C8B4D9EA126 /* Pods-DivBin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VTH3535D42;
+				DEVELOPMENT_TEAM = Z88HQX98VL;
 				INFOPLIST_FILE = DivBin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wilsonding.DivBin;
