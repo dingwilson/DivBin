@@ -168,7 +168,7 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
                 $0.title = "Credit Card"
                 }.onCellSelection { _,_ in
                     self.showTextInputPrompt(withMessage: "Credit Card Number:") { (userPressedOK, userInput) in
-                        if let userInput = userInput {
+                        if userInput != nil {
                             //
                         } else {
                             self.createAlert(title: "Error", message: "Credit Card Number cannot be empty")
@@ -180,7 +180,7 @@ class ProfileViewController: FormViewController, GIDSignInUIDelegate {
                 $0.title = "Link Bank Account"
                 }.onCellSelection { _,_ in
                     self.showTextInputPrompt(withMessage: "Bank Account Number:") { (userPressedOK, userInput) in
-                        if let userInput = userInput {
+                        if userInput != nil {
                             //
                         } else {
                             self.createAlert(title: "Error", message: "Bank Account Number cannot be empty")
