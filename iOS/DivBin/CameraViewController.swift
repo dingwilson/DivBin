@@ -222,10 +222,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     
                     self.tags = self.tags.filter({!self.blacklistWords.contains($0 as! String)})
                     
-                    DispatchQueue.main.async {
-                        self.titleLabel.text = self.tags[0] as? String
-                        self.titleLabel.isHidden = false
-                        self.incorrectButton.isHidden = false
+                    if self.tags.count > 0 {
+                        DispatchQueue.main.async {
+                            self.titleLabel.text = self.tags[0] as? String
+                            self.titleLabel.isHidden = false
+                            self.incorrectButton.isHidden = false
+                        }
                     }
                     
                     let total = self.tags.count
@@ -249,13 +251,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         if (self.dataset.keys.contains(tag!)) {
                             let type = self.dataset[tag!]
                             if (type == "donate") {
-                                donate+=1;
+                                donate += 1
                             } else if (type == "recycle") {
-                                recycle+=1;
+                                recycle += 1
                             } else if (type == "compost") {
-                                compost+=1;
+                                compost += 1
                             } else if (type == "trash") {
-                                trash+=1;
+                                trash += 1
                             }
                         }
                         
