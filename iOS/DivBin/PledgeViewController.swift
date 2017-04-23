@@ -123,6 +123,18 @@ extension PledgeViewController: ImagePickerDelegate {
             // Metadata contains file metadata such as size, content-type, and download URL.
             let downloadURL = metadata.downloadURL
         }
+        
+        databaseRef.child("Users/\(useruid)/PledgesLeft").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            var value = snapshot.value as! Int
+            
+            value = value - 1
+            
+            self.databaseRef.child("Users/\(useruid)/PledgesLeft").setValue(value)
+            
+        })
+        
+        
     }
     
 }
