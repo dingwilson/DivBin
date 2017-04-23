@@ -11,6 +11,7 @@ import AVFoundation
 import Clarifai
 import Alamofire
 import SwiftyJSON
+import Firebase
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
@@ -37,18 +38,22 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var previewLayer: AVCaptureVideoPreviewLayer?
     var currentImage: UIImage?
 
+    var ref: FIRDatabaseReference?
     var app: ClarifaiApp?
     var server: String?
     
+    private var itemsRef: FIRDatabaseHandle?
+
     var tags = [Any]()
 
     var checkTimer: Timer!
-
+    var dataset: Dictionary<String, String> = [:]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadClarifaiKeys()
-        loadServerURL()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +68,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         firstDescription.text = "Point your camera at an object to begin..."
         
         loadCamera()
+        
+        ref = FIRDatabase.database().reference()
+        itemsRef = ref?.observe(.childAdded, with: { (snapshot) -> Void in
+            self.dataset[snapshot.key] = snapshot.value as! String
+//            self.friendsList[snapshot.key] = snapshot.value as! String
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -219,53 +230,80 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                         self.incorrectButton.isHidden = false
                     }
                     
-                    var queryStr = self.tags.description
-                    queryStr = queryStr.replacingOccurrences(of: " ", with: "")
-                    queryStr.remove(at: queryStr.startIndex)
-                    queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
+                    let total = self.tags.count
+                    var trash = 0
+                    var recycle = 0
+                    var compost = 0
+                    var donate = 0
                     
-                    let url = self.server! + "/analyze/" + queryStr
-                    Alamofire.request(url, method: .get).validate().responseJSON { response in
-                        switch response.result {
-                        case .success(let value):
-                            let json = JSON(value)
-                            let trash = json["Trash"].doubleValue
-                            let donate = json["Donate"].doubleValue
-                            let compost = json["Compost"].doubleValue
-                            let recycle = json["Recycle"].doubleValue
-                            
-                    
-                            let dict = [
-                                "Trash":trash,
-                                "Donate":donate,
-                                "Compost":compost,
-                                "Recycle":recycle
-                            ]
-                            
-                            let sorted = dict.sorted(by: {
-                                let obj1 = dict[$0.key]
-                                let obj2 = dict[$1.key]
-                                if (obj1! - obj2! > 0) {
-                                    return true
-                                }
-                                return false
-                            })
-                            
-                            for item in sorted {
-                                if (item.value != 0.0) {
-                                    self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
-                                }
+                    for item in self.tags {
+                        
+                        var tag = item as? String
+                        tag = tag?.replacingOccurrences(of: " ", with: "")
+                        print(tag!)
+                        if (self.dataset.keys.contains(tag!)) {
+                            let type = self.dataset[tag!]
+                            if (type == "donate") {
+                                donate+=1;
+                            } else if (type == "recycle") {
+                                recycle+=1;
+                            } else if (type == "compost") {
+                                compost+=1;
+                            } else if (type == "trash") {
+                                trash+=1;
                             }
-                            
-                            DispatchQueue.main.async {
-                                self.updatePercentages()
-                            }
-                            
-                        case .failure(let error):
-                            print(error)
                         }
+                        
+                        
                     }
                     
+//                    var queryStr = self.tags.description
+//                    queryStr = queryStr.replacingOccurrences(of: " ", with: "")
+//                    queryStr.remove(at: queryStr.startIndex)
+//                    queryStr = queryStr.substring(to: queryStr.index(before: queryStr.endIndex))
+//                    
+//                    let url = self.server! + "/analyze/" + queryStr
+//                    Alamofire.request(url, method: .get).validate().responseJSON { response in
+//                        switch response.result {
+//                        case .success(let value):
+//                            let json = JSON(value)
+//                            let trash = json["Trash"].doubleValue
+//                            let donate = json["Donate"].doubleValue
+//                            let compost = json["Compost"].doubleValue
+//                            let recycle = json["Recycle"].doubleValue
+//                            
+//                    
+//                            let dict = [
+//                                "Trash":trash,
+//                                "Donate":donate,
+//                                "Compost":compost,
+//                                "Recycle":recycle
+//                            ]
+//                            
+//                            let sorted = dict.sorted(by: {
+//                                let obj1 = dict[$0.key]
+//                                let obj2 = dict[$1.key]
+//                                if (obj1! - obj2! > 0) {
+//                                    return true
+//                                }
+//                                return false
+//                            })
+//                            
+//                            for item in sorted {
+//                                if (item.value != 0.0) {
+//                                    self.descriptionArray.append("\(item.key): \(Double(round(100*item.value)/100) * 100)%")
+//                                }
+//                            }
+//                            
+//                            DispatchQueue.main.async {
+//                                self.updatePercentages()
+//                            }
+//                            
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//                    }
+//                    
                 } else {
                     print("Error: \(String(describing: error?.localizedDescription))")
                 }
@@ -314,19 +352,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         self.descriptionArray = []
     }
 
-    func loadServerURL() {
-        if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
-            let keys = NSDictionary(contentsOf: url) as? [String:Any] {
-            
-            if let serverURL = keys["Server_URL"] as? String {
-                server = serverURL
-            } else {
-                fatalError("Unable to find Server URL")
-            }
-        } else {
-            fatalError("Error: Could not find Keys.plist")
-        }
-    }
 
     @IBAction func didPressIncorrectButton(_ sender: Any) {
         self.performSegue(withIdentifier: "goToSelection", sender: self)

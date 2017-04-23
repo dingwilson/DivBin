@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import FirebaseDatabase
 
 class SelectionViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class SelectionViewController: UIViewController {
     var tag: String?
     
     var server: String?
+    var ref: FIRDatabaseReference?
     
     override var prefersStatusBarHidden : Bool {
         return true
@@ -29,8 +31,8 @@ class SelectionViewController: UIViewController {
         
         imageView?.image = currentImage
         titleLabel.text = tag
-        
-        loadServerURL()
+        ref = FIRDatabase.database().reference()
+    
     }
     
     @IBAction func didPressCompost(_ sender: Any) {
@@ -54,30 +56,9 @@ class SelectionViewController: UIViewController {
     }
     
     func sendData(type: String) {
-        let url = "\(self.server!)/lists/\(type)/\(tag!)"
         
-        Alamofire.request(url, method: .get).validate().responseJSON { response in
-            switch response.result {
-            case .success( _): break
-                // Yay
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func loadServerURL() {
-        if let url = Bundle.main.url(forResource:"Keys", withExtension: "plist"),
-            let keys = NSDictionary(contentsOf: url) as? [String:Any] {
-            
-            if let serverURL = keys["Server_URL"] as? String {
-                server = serverURL
-            } else {
-                fatalError("Unable to find Server URL")
-            }
-        } else {
-            fatalError("Error: Could not find Keys.plist")
-        }
+        self.ref?.child(tag!).setValue(type)
+
     }
 
 }

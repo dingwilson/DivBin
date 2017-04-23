@@ -10,4 +10,5 @@ target 'DivBin' do
   pod 'SwiftyJSON'
   pod 'SwiftVideoBackground'
   pod 'Clarifai'
+  pod 'Firebase/Database'
 end
