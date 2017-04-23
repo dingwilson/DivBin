@@ -31,7 +31,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     let cameraTimerInterval: TimeInterval = 3
 
-    let blacklistWords: [String] = ["abstract", "action", "adolescent", "adult", "aircraft", "architecture", "art", "artistic", "astronomy", "auto racing", "background", "band", "banking", "bathroom", "battle", "bird", "blur", "bright", "building", "business", "car", "carnival", "celebration", "ceremony", "city", "color", "commerce", "competition", "conceptual", "concert", "connection", "contemporary", "craft", "creativity", "danger", "dark", "daylight", "design", "displayed", "drag race", "drive", "eclipse", "education", "empty", "environment", "equipment", "exhibition", "face", "family", "fashion", "festival", "financial security", "flame", "futuristic", "girl", "grinder", "group", "hairdo", "healthcare", "horizontal", "illuminated", "illustration", "indoors", "industry", "inside", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "man", "many", "military", "mirror", "money", "modern", "moon", "motion", "movie", "museum", "music", "musician", "nature", "nightclub", "no person", "offense", "office", "one", "outdoors", "pattern", "people", "performance", "police", "portrait", "production", "public show", "race", "recreation", "reflection", "room", "science", "school", "screen", "service", "shining", "shopping", "side view", "singer", "skill", "sky", "space", "stage", "strange", "street", "soap", "sound", "spotlight", "still life", "stock", "stripe", "text", "texture", "transportation system", "travel", "urban", "vector", "vehicle", "vertical", "wallpaper", "wear", "window", "woman", "young"]
+    let blacklistWords: [String] = ["abstract", "action", "adolescent", "adult", "aircraft", "architecture", "art", "artistic", "astronomy", "auto racing", "background", "band", "banking", "bathroom", "battle", "bird", "blur", "bright", "building", "business", "car", "carnival", "celebration", "ceremony", "child", "city", "color", "commerce", "competition", "conceptual", "concert", "connection", "contemporary", "craft", "creativity", "danger", "dark", "daylight", "design", "displayed", "drag race", "drive", "eclipse", "education", "empty", "environment", "equipment", "exhibition", "face", "family", "fashion", "festival", "financial security", "flame", "futuristic", "girl", "grinder", "group", "hairdo", "healthcare", "horizontal", "illuminated", "illustration", "indoors", "industry", "inside", "insubstantial", "internet", "landscape", "light", "Luna", "luxury", "man", "many", "military", "mirror", "money", "modern", "moon", "motion", "movie", "museum", "music", "musician", "nature", "nightclub", "no person", "offense", "office", "one", "outdoors", "pattern", "people", "performance", "police", "portrait", "production", "public show", "race", "recreation", "reflection", "religion", "room", "science", "school", "screen", "service", "shining", "shopping", "side view", "singer", "skill", "sky", "space", "stage", "strange", "street", "soap", "sound", "spotlight", "still life", "stock", "stripe", "text", "texture", "transportation system", "travel", "urban", "vector", "vehicle", "vertical", "wallpaper", "war", "wear", "window", "woman", "young"]
 
     var captureSession: AVCaptureSession?
     var cameraOutput: AVCapturePhotoOutput?
@@ -237,10 +237,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     var donate = 0
                     
                     var dict = [
-                        "Trash" : Float(0.0),
-                        "Donate": Float(0.0),
-                        "Compost": Float(0.0),
-                        "Recycle": Float(0.0)
+                        "Trash" : Double(0.0),
+                        "Donate": Double(0.0),
+                        "Compost": Double(0.0),
+                        "Recycle": Double(0.0)
                     ]
                     
                     for item in self.tags {
@@ -261,10 +261,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                             }
                         }
                         
-                        let fTrash = Float(trash) / Float(total)
-                        let fRecycle = Float(recycle) / Float(total)
-                        let fCompost = Float(compost) / Float(total)
-                        let fDonate = Float(donate) / Float(total)
+                        let fTrash = Double(trash) / Double(total)
+                        let fRecycle = Double(recycle) / Double(total)
+                        let fCompost = Double(compost) / Double(total)
+                        let fDonate = Double(donate) / Double(total)
                         
                         dict = [
                             "Trash":fTrash,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftVideoBackground
 import ImagePicker
 import FirebaseStorage
 import FirebaseDatabase
@@ -17,18 +18,20 @@ class PledgeViewController: UIViewController {
     var storageRef: FIRStorageReference!
     var databaseRef: FIRDatabaseReference!
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var backgroundVideo: BackgroundVideo!
+    
+    @IBOutlet weak var numberOfPledges: UILabel!
+    @IBOutlet weak var remainingPledges: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         storageRef = FIRStorage.storage().reference()
         databaseRef = FIRDatabase.database().reference()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        backgroundVideo.createBackgroundVideo(name: "Flying-Birds", type: "mp4")
+       
+        numberOfPledges.text = "25"
+        remainingPledges.text = "I still have 18 times to go."
     }
     
     @IBAction func didPressPhotoButton(_ sender: Any) {
@@ -86,5 +89,5 @@ extension PledgeViewController: ImagePickerDelegate {
             let downloadURL = metadata.downloadURL
         }
     }
-
+    
 }
