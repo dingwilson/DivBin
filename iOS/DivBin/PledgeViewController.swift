@@ -80,6 +80,12 @@ class PledgeViewController: UIViewController {
         })
 
     }
+    
+    @IBAction func didPressShipping(_ sender: Any) {
+        let url = URL(string: "http://sample-env-1.6xphxzzcm4.us-east-1.elasticbeanstalk.com/labels/Kevin%20Nguyen/1234%20Fake%20Street/Fake%20City/TX/44023")
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+    }
+    
 }
 
 extension PledgeViewController: ImagePickerDelegate {
@@ -124,5 +130,4 @@ extension PledgeViewController: ImagePickerDelegate {
             let downloadURL = metadata.downloadURL
         }
     }
-    
 }
