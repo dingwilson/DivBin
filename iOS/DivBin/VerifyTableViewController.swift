@@ -34,18 +34,14 @@ class VerifyTableViewController: UITableViewController {
         itemsRef = databaseRef?.child("Timeline").observe(.childAdded, with: { (snapshot) -> Void in
             
             self.timelineData[snapshot.key] = snapshot.value
+            
+            print(self.timelineData[snapshot.key])
         
         })
         
 //        profileData["1Mmf9P7QfkWTkYpzHSCQXoeD6Om1"] = "VongolaXSky";
 //        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
 //        profileData["FPhncEamMnXYdj1POLkIMmpMSv92"] = "Shodai100";
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,20 +52,21 @@ class VerifyTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return timelineData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-//         cell.textLabel?.text = self.timelineData[ indexPath ]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! VerifyTableViewCell
+        
+//        cell?.verifyImage = image
+//        cell?.nameLabel = name
+//        cell?.timestampLabel = timestamp
+        
         return cell
     }
  
