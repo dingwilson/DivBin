@@ -12,7 +12,7 @@ To install and run DivBin on your own iOS device, simply clone the repository. R
 
 ## License
 
-`ProxyChat` is released under an [MIT License][mitLink]. See `LICENSE` for details.
+`DivBin` is released under an [MIT License][mitLink]. See `LICENSE` for details.
 
 **Copyright &copy; 2017-present Wilson Ding.**
 
